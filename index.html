@@ -32,7 +32,7 @@
             align-items: center; /* Center items vertically within the flex container */
         }
         .nav-button {
-            background-color: #4f46e5;
+            /* Common button styles - color will be overridden by specific classes below */
             color: white;
             padding: 15px 30px;
             border-radius: 10px;
@@ -43,10 +43,6 @@
             width: 100%; /* Make buttons full width of their container */
             text-decoration: none; /* Remove underline from links */
             box-sizing: border-box; /* Include padding in width calculation */
-        }
-        .nav-button:hover {
-            background-color: #4338ca;
-            transform: translateY(-2px); /* Slight lift effect on hover */
         }
         .nav-button:active {
             transform: translateY(0); /* Return to normal on click */
@@ -115,27 +111,27 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Welcome to My Portfolio!</h1>
-        <p class="text-gray-600 mb-6">Click a button below to explore my projects:</p>
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Welcome to the Food Website!</h1>
+        <p class="text-gray-600 mb-6">Click a button below to explore the healthy food :</p>
 
-        <!-- Link to index1.html -->
-        <a href="index1.html" class="nav-button">
-            Project 1
+        <!-- Link to index1.html - Red -->
+        <a href="index1.html" class="nav-button bg-red-500 hover:bg-red-600">
+            Food image detector
         </a>
 
-        <!-- Link to index2.html -->
-        <a href="index2.html" class="nav-button">
-            Project 2
+        <!-- Link to index2.html - Orange -->
+        <a href="index2.html" class="nav-button bg-orange-500 hover:bg-orange-600">
+            English food detector
         </a>
 
-        <!-- Link to index3.html -->
-        <a href="index3.html" class="nav-button">
-            Project 3
+        <!-- Link to index3.html - Yellow -->
+        <a href="index3.html" class="nav-button bg-yellow-500 hover:bg-yellow-600">
+            Chinese food detector
         </a>
 
-        <!-- Link to the Food Detector app (assuming it's saved as food-detector.html) -->
-        <a href="food-detector.html" class="nav-button bg-green-500 hover:bg-green-600">
-            Food Detector App
+        <!-- Link to index4.html - Green (already set) -->
+        <a href="index4.html" class="nav-button bg-green-500 hover:bg-green-600">
+            Restaurant suggestions
         </a>
     </div>
 
