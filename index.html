@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Pages Portfolio</title>
     <!-- Tailwind CSS CDN -->
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -51,6 +51,66 @@
         .nav-button:active {
             transform: translateY(0); /* Return to normal on click */
         }
+
+        /* Styles for the Modal Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top of everything */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px); /* Start slightly above */
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.show .modal-content {
+            transform: translateY(0); /* Slide into place */
+        }
+        .modal-close-button {
+            background-color: #ef4444; /* Red color for close button */
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .modal-close-button:hover {
+            background-color: #dc2626;
+        }
+        .modal-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #334155;
+            margin-bottom: 15px;
+        }
+        .modal-tip-text {
+            font-size: 1.1em;
+            color: #4b5563;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -74,10 +134,55 @@
         </a>
 
         <!-- Link to the Food Detector app (assuming it's saved as food-detector.html) -->
-       <!--<a href="food-detector.html" class="nav-button bg-green-500 hover:bg-green-600"> -->
-        <!--  Food Detector App -->
-       <!--</a> -->
-
+        <a href="food-detector.html" class="nav-button bg-green-500 hover:bg-green-600">
+            Food Detector App
+        </a>
     </div>
+
+    <!-- The Modal (Popup) Structure -->
+    <div id="healthTipModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="modal-title">Health Tip for Seniors with Chronic Conditions!</h2>
+            <p id="randomTipText" class="modal-tip-text"></p>
+            <button class="modal-close-button" onclick="closeModal()">Got It!</button>
+        </div>
+    </div>
+
+    <script>
+        // Array of healthy tips, specifically tailored for elderly individuals with high blood pressure,
+        // high blood sugar, and high cholesterol ("3 high diseases").
+        const healthyTips = [
+            "**Prioritize Low-Sodium, High-Fiber Foods:** For blood pressure and heart health, choose fresh fruits, vegetables, whole grains, and lean proteins. Limit processed foods, which are often high in sodium.",
+            "**Monitor Blood Sugar with Smart Choices:** Opt for complex carbohydrates (like oats, brown rice) and lean proteins. Avoid sugary drinks and processed sweets to help manage blood sugar levels effectively.",
+            "**Choose Healthy Fats for Cholesterol:** Incorporate sources of unsaturated fats like avocados, nuts, seeds, and olive oil. Limit saturated and trans fats found in fried foods and many packaged snacks to support heart health.",
+            "**Regular, Doctor-Approved Exercise:** Engage in physical activity tailored to your health conditions, such as brisk walking, swimming, or cycling. Always consult your doctor before starting any new exercise routine.",
+            "**Consistent Medication Adherence is Key:** Take all prescribed medications for blood pressure, blood sugar, and cholesterol exactly as directed. Missing doses can have serious health consequences.",
+            "**Stay Hydrated with Plain Water:** Avoid sugary drinks that can spike blood sugar. Water is essential for kidney function and helps manage blood pressure and overall metabolism.",
+            "**Manage Stress Effectively:** Stress can impact blood pressure and blood sugar. Practice relaxation techniques like deep breathing, meditation, or gentle yoga to help keep stress levels in check.",
+            "**Regular Medical Check-ups & Monitoring:** Frequent visits to your doctor are vital to monitor your blood pressure, blood sugar, and cholesterol levels. Discuss any changes or concerns promptly.",
+            "**Understand Food Labels:** Learn to read nutrition labels to identify sodium, sugar, and unhealthy fat content. This empowers you to make informed food choices that support your health goals.",
+            "**Prioritize Quality Sleep:** Good sleep helps regulate hormones that affect blood sugar and appetite, and contributes to overall cardiovascular health. Aim for 7-9 hours of restful sleep nightly."
+        ];
+
+        function showRandomTip() {
+            // Get a random tip from the array
+            const randomIndex = Math.floor(Math.random() * healthyTips.length);
+            const randomTip = healthyTips[randomIndex];
+
+            // Display the tip in the modal
+            document.getElementById('randomTipText').innerHTML = randomTip; // Use innerHTML for bold tags
+
+            // Show the modal
+            document.getElementById('healthTipModal').classList.add('show');
+        }
+
+        function closeModal() {
+            // Hide the modal
+            document.getElementById('healthTipModal').classList.remove('show');
+        }
+
+        // Show a random tip when the page finishes loading
+        window.onload = showRandomTip;
+    </script>
 </body>
 </html>
