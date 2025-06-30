@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>籠太子點心專門店 | 香港地道點心</title>
+    <style>
+        :root {
+            --dim-sum-green: #2e8b57;
+            --dim-sum-gold: #ffd700;
+            --dim-sum-red: #d22b2b;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff9f0;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--dim-sum-green), var(--dim-sum-gold));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🥟";
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            right: 30px;
+            top: 10px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .restaurant-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--dim-sum-red);
+            line-height: 1.8;
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 35px 0;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border: 3px solid var(--dim-sum-gold);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .dim-sum-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--dim-sum-green);
+        }
+        .menu-content {
+            padding: 20px;
+        }
+        .menu-content h3 {
+            color: var(--dim-sum-red);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px dashed var(--dim-sum-gold);
+            padding-bottom: 8px;
+        }
+        .price {
+            color: var(--dim-sum-green);
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .branch-info {
+            background: #f8f4e8;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-top: 4px solid var(--dim-sum-red);
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--dim-sum-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(to right, var(--dim-sum-green), #1e5c3a);
+            color: white;
+            margin-top: 60px;
+        }
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--dim-sum-red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .dim-sum-menu { grid-template-columns: 1fr; }
+            .header { padding: 2rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>籠太子點心專門店<small>傳統手工點心 • 即叫即蒸</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="restaurant-info">
+            <h2>關於籠太子</h2>
+            <p>籠太子點心專門店創立於2005年，堅持傳統手工製作，所有點心每日新鮮製作。我們的點心師傅擁有超過30年經驗，嚴選優質食材，為您帶來最地道的港式點心體驗。</p>
+            <p>「籠太子」之名源自我們對點心蒸籠的講究，使用特製竹蒸籠，確保點心受熱均勻，保留原汁原味。</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d17547.14449093803!2d113.97727561468655!3d22.397662600859906!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z6b6N6ZaA5bGA6bue5b-D55qH!5e0!3m2!1szh-TW!2shk!4v1750819515827!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="branch-info">
+            <h2>分店資訊</h2>
+            <p>地址：香港數碼港道100號數碼港商場3樓</p>
+            <p>電話：+852 3456 7890</p>
+            <p>營業時間：<span class="opening-hours">08:00 - 22:00 (最後點餐21:30)</span></p>
+        </div>
+
+        <h2 style="text-align: center; color: var(--dim-sum-green); margin-top: 50px;">招牌點心</h2>
+        <div class="dim-sum-menu">
+            <div class="menu-item">
+                <div class="tag">招牌推薦</div>
+                <img src="https://example.com/siu-mai.jpg" alt="太子蝦餃皇">
+                <div class="menu-content">
+                    <h3>太子蝦餃皇</h3>
+                    <p>每隻蝦餃包含3隻完整鮮蝦，皮薄餡多</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="tag">人氣之選</div>
+                <img src="https://example.com/har-gow.jpg" alt="蟹子燒賣皇">
+                <div class="menu-content">
+                    <h3>蟹子燒賣皇</h3>
+                    <p>豬肉與蝦肉完美比例，頂級蟹子點綴</p>
+                    <p class="price">HKD 35</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://example.com/bbq-pork-bun.jpg" alt="蜜汁叉燒包">
+                <div class="menu-content">
+                    <h3>蜜汁叉燒包</h3>
+                    <p>秘製蜜汁叉燒餡，包子鬆軟香甜</p>
+                    <p class="price">HKD 28</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 籠太子點心專門店 版權所有</p>
+        <p>訂座熱線: 3456 7890 | 外賣自取: 2345 6789</p>
+    </footer>
+</body>
+</html>
