@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香港大家樂分店地圖 | Fairwood Locations in HK</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        .header {
+            background-color: #E31937; /* Fairwood Red */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .map-container {
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .info {
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>香港大家樂分店地圖</h1>
+        <p>Fairwood Locations in Hong Kong</p>
+    </div>
+
+    <div class="container">
+        <div class="info">
+            <p>以下地圖顯示香港各區大家樂分店位置。使用地圖可查看最近分店。</p>
+            <p>This map shows all Fairwood locations in Hong Kong. Zoom in to find the nearest restaurant.</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d52571.223984743265!2d114.00994451032369!3d22.426192026279296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z5aSn5a625qiC!5e0!3m2!1szh-TW!2shk!4v1750817377345!5m2!1szh-TW!2shk" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="info">
+            <h3>大家樂小知識</h3>
+            <p>大家樂是香港著名連鎖快餐店，成立於1968年，提供中西式快餐選擇。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Fairwood Map | Data from Google Maps</p>
+    </footer>
+</body>
+</html>
