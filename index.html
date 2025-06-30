@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My GitHub Pages Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center; /* Center content horizontally */
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px; /* Limit width for better appearance */
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between elements */
+            align-items: center; /* Center items vertically within the flex container */
+        }
+        .nav-button {
+            background-color: #4f46e5;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block; /* Allows padding and width to be applied */
+            width: 100%; /* Make buttons full width of their container */
+            text-decoration: none; /* Remove underline from links */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+        .nav-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+        .nav-button:active {
+            transform: translateY(0); /* Return to normal on click */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Welcome to My Portfolio!</h1>
+        <p class="text-gray-600 mb-6">Click a button below to explore my projects:</p>
+
+        <!-- Link to index1.html -->
+        <a href="index1.html" class="nav-button">
+            Project 1
+        </a>
+
+        <!-- Link to index2.html -->
+        <a href="index2.html" class="nav-button">
+            Project 2
+        </a>
+
+        <!-- Link to index3.html -->
+        <a href="index3.html" class="nav-button">
+            Project 3
+        </a>
+
+        <!-- Link to the Food Detector app (assuming it's saved as food-detector.html) -->
+        <a href="food-detector.html" class="nav-button bg-green-500 hover:bg-green-600">
+            Food Detector App
+        </a>
+
+    </div>
+</body>
+</html>
