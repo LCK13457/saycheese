@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>松記糖水 | 香港人氣甜品店</title>
+    <style>
+        :root {
+            --sung-kee-green: #4a7c59;
+            --sung-kee-cream: #f8f4e3;
+            --sung-kee-brown: #6b4f4f;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--sung-kee-cream);
+            color: var(--sung-kee-brown);
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--sung-kee-green), #3a6147);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🍨";
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            right: 30px;
+            top: 10px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .shop-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--sung-kee-green);
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 35px 0;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border: 3px solid var(--sung-kee-brown);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .dessert-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--sung-kee-green);
+        }
+        .menu-content {
+            padding: 20px;
+        }
+        .menu-content h3 {
+            color: var(--sung-kee-green);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px dashed var(--sung-kee-brown);
+            padding-bottom: 8px;
+        }
+        .price {
+            color: var(--sung-kee-brown);
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .location-info {
+            background: #f0f5f1;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-top: 4px solid var(--sung-kee-green);
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--sung-kee-green);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(to right, var(--sung-kee-brown), #4a3a3a);
+            color: white;
+            margin-top: 60px;
+        }
+        .signature {
+            font-style: italic;
+            color: var(--sung-kee-green);
+            text-align: right;
+            margin-top: 20px;
+        }
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--sung-kee-green);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .special-offer {
+            background-color: #fff8e8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--sung-kee-green);
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .dessert-menu { grid-template-columns: 1fr; }
+            .header { padding: 2rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>松記糖水<small>HUI LAU SHAN • 香港人氣甜品專家</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="shop-info">
+            <h2>關於松記糖水</h2>
+            <p>松記糖水創立於1995年，從街邊小攤發展成為香港最具人氣的甜品連鎖店之一。我們以創意甜品聞名，堅持每日新鮮製作，選用優質食材，為顧客帶來獨特的甜品體驗。</p>
+            <p>「松記」之名取自創辦人對松樹堅毅精神的嚮往，象徵我們對甜品品質的堅持。</p>
+            <p class="signature">—— 創新甜品 • 傳統滋味 ——</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d167017.22885408884!2d114.08894398172949!3d22.33118106422831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z5p2-6KiY57OW5rC0!5e0!3m2!1szh-TW!2shk!4v1750820200621!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="location-info">
+            <h2>店鋪資訊</h2>
+            <p>地址：香港佐敦白加士街23號地下</p>
+            <p>電話：+852 6789 0123</p>
+            <p>營業時間：<span class="opening-hours">15:00 - 01:00 (凌晨)</span></p>
+        </div>
+
+        <div class="special-offer">
+            <h3 style="color: var(--sung-kee-green); margin-top: 0;">夏日限定 | 精選優惠</h3>
+            <p>凡購買任何甜品兩份，即送傳統芝麻糊一碗 (價值HKD 22)</p>
+        </div>
+
+        <h2 style="text-align: center; color: var(--sung-kee-brown); margin-top: 50px;">招牌甜品</h2>
+        <div class="dessert-menu">
+            <div class="menu-item">
+                <div class="tag">必食之選</div>
+                <img src="https://example.com/mango-pomelo-sago.jpg" alt="楊枝甘露">
+                <div class="menu-content">
+                    <h3>楊枝甘露</h3>
+                    <p>新鮮芒果配柚子肉和西米，松記招牌甜品</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="tag">創新口味</div>
+                <img src="https://example.com/durian-pancake.jpg" alt="榴槤班戟">
+                <div class="menu-content">
+                    <h3>榴槤班戟</h3>
+                    <p>馬來西亞貓山王榴槤配鮮奶油，口感濃郁</p>
+                    <p class="price">HKD 52</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://example.com/black-sesame-soup.jpg" alt="芝麻糊">
+                <div class="menu-content">
+                    <h3>傳統芝麻糊</h3>
+                    <p>手磨芝麻糊，香濃滑順，可選熱/凍</p>
+                    <p class="price">HKD 22</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 松記糖水 版權所有</p>
+        <p>創新甜品 • 傳統手藝 • 香港味道</p>
+    </footer>
+</body>
+</html>
