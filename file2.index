@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吉野家香港 | 日本牛丼專門店</title>
+    <style>
+        :root {
+            --yoshinoya-red: #e60012;
+            --yoshinoya-brown: #8c6239;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f5;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(to right, var(--yoshinoya-red), var(--yoshinoya-brown));
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🍱";
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            right: 50px;
+            top: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+        .restaurant-intro {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--yoshinoya-red);
+            line-height: 1.8;
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--yoshinoya-brown);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .menu-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        .menu-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--yoshinoya-red);
+        }
+        .menu-content {
+            padding: 15px;
+        }
+        .menu-content h3 {
+            color: var(--yoshinoya-red);
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .price {
+            color: var(--yoshinoya-brown);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #333;
+            color: white;
+            margin-top: 50px;
+        }
+        .branch-info {
+            background: #f9f3e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--yoshinoya-red);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .menu-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>吉野家<small>YOSHINOYA | 日本牛丼專門店</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="restaurant-intro">
+            <h2>日本傳統美味</h2>
+            <p>吉野家創立於1899年，是全球知名的日本牛丼連鎖店。我們堅持使用優質牛肉和秘製醬汁，為香港帶來正宗日式丼飯體驗。所有食材均經過嚴格挑選，確保每一碗都能呈現最地道的日本風味。</p>
+            <p>Yoshinoya, founded in 1899, is a globally renowned Japanese beef bowl chain. We bring authentic donburi experience to Hong Kong with premium ingredients and secret-recipe sauce.</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d29510.162605866022!2d113.96683016459971!3d22.400014213651367!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z5ZCJ6YeO5a62!5e0!3m2!1szh-TW!2shk!4v1750819185352!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="branch-info">
+            <h2>香港分店資訊</h2>
+            <p>地址：香港數碼港道100號數碼港商場</p>
+            <p>電話：+852 2345 6789</p>
+            <div class="opening-hours">營業時間：11:00 - 22:00</div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--yoshinoya-brown); margin-top: 40px;">人氣菜單</h2>
+        <div class="menu-section">
+            <div class="menu-card">
+                <img src="https://example.com/beef-bowl.jpg" alt="招牌牛丼">
+                <div class="menu-content">
+                    <h3>招牌牛丼</h3>
+                    <p>特選牛肉配秘製醬汁，經典之選</p>
+                    <p class="price">HKD 42</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://example.com/chicken-bowl.jpg" alt="照燒雞丼">
+                <div class="menu-content">
+                    <h3>照燒雞丼</h3>
+                    <p>嫩滑雞肉配日式照燒醬</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://example.com/combo-set.jpg" alt="特選套餐">
+                <div class="menu-content">
+                    <h3>特選套餐</h3>
+                    <p>牛丼+味噌湯+沙拉</p>
+                    <p class="price">HKD 58</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 吉野家香港 版權所有</p>
+        <p>網上訂餐: order.yoshinoya.com.hk</p>
+    </footer>
+</body>
+</html>
