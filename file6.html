@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>松記糖水 | 香港人氣甜品店</title>
+    <title>銀杏館 | 香港社會企業餐廳</title>
     <style>
         :root {
-            --sung-kee-green: #4a7c59;
-            --sung-kee-cream: #f8f4e3;
-            --sung-kee-brown: #6b4f4f;
+            --gingko-green: #597c4a; /* A more earthy green */
+            --gingko-cream: #f4f8e3; /* A soft cream */
+            --gingko-brown: #4f4f6b; /* A slightly purplish-brown for warmth */
         }
         body {
             font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--sung-kee-cream);
-            color: var(--sung-kee-brown);
+            background-color: var(--gingko-cream);
+            color: var(--gingko-brown);
             line-height: 1.7;
         }
         .header {
-            background: linear-gradient(135deg, var(--sung-kee-green), #3a6147);
+            background: linear-gradient(135deg, var(--gingko-green), #3a6147);
             color: white;
             padding: 3rem 0;
             text-align: center;
@@ -27,7 +27,7 @@
             overflow: hidden;
         }
         .header::before {
-            content: "🍨";
+            content: "👵👴"; /* Emojis representing seniors */
             position: absolute;
             font-size: 120px;
             opacity: 0.1;
@@ -57,7 +57,7 @@
             border-radius: 12px;
             margin: 30px 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-left: 6px solid var(--sung-kee-green);
+            border-left: 6px solid var(--gingko-green);
         }
         .map-container {
             position: relative;
@@ -67,7 +67,7 @@
             margin: 35px 0;
             border-radius: 15px;
             box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-            border: 3px solid var(--sung-kee-brown);
+            border: 3px solid var(--gingko-brown);
         }
         .map-container iframe {
             position: absolute;
@@ -77,7 +77,7 @@
             height: 100%;
             border: none;
         }
-        .dessert-menu {
+        .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
@@ -98,35 +98,35 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            border-bottom: 4px solid var(--sung-kee-green);
+            border-bottom: 4px solid var(--gingko-green);
         }
         .menu-content {
             padding: 20px;
         }
         .menu-content h3 {
-            color: var(--sung-kee-green);
+            color: var(--gingko-green);
             margin: 0 0 10px 0;
             font-size: 1.4rem;
-            border-bottom: 2px dashed var(--sung-kee-brown);
+            border-bottom: 2px dashed var(--gingko-brown);
             padding-bottom: 8px;
         }
         .price {
-            color: var(--sung-kee-brown);
+            color: var(--gingko-brown);
             font-weight: bold;
             font-size: 1.3rem;
             display: inline-block;
             margin-top: 10px;
         }
         .location-info {
-            background: #f0f5f1;
+            background: #e3f4f8; /* A light blue for contrast */
             padding: 25px;
             border-radius: 10px;
             margin: 30px 0;
-            border-top: 4px solid var(--sung-kee-green);
+            border-top: 4px solid var(--gingko-green);
         }
         .opening-hours {
             display: inline-block;
-            background: var(--sung-kee-green);
+            background: var(--gingko-green);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
@@ -136,13 +136,13 @@
         footer {
             text-align: center;
             padding: 30px;
-            background: linear-gradient(to right, var(--sung-kee-brown), #4a3a3a);
+            background: linear-gradient(to right, var(--gingko-brown), #3a3a4a);
             color: white;
             margin-top: 60px;
         }
         .signature {
             font-style: italic;
-            color: var(--sung-kee-green);
+            color: var(--gingko-green);
             text-align: right;
             margin-top: 20px;
         }
@@ -150,7 +150,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background-color: var(--sung-kee-green);
+            background-color: var(--gingko-green);
             color: white;
             padding: 5px 10px;
             border-radius: 15px;
@@ -158,16 +158,16 @@
             font-weight: bold;
         }
         .special-offer {
-            background-color: #fff8e8;
+            background-color: #e8f8ff; /* A lighter blue */
             padding: 15px;
             border-radius: 8px;
             margin: 20px 0;
-            border-left: 4px solid var(--sung-kee-green);
+            border-left: 4px solid var(--gingko-green);
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .container { padding: 15px; }
-            .dessert-menu { grid-template-columns: 1fr; }
+            .menu-grid { grid-template-columns: 1fr; }
             .header { padding: 2rem 0; }
         }
     </style>
@@ -175,73 +175,100 @@
 <body>
     <header class="header">
         <div class="container">
-            <h1>松記糖水<small>HUI LAU SHAN • 香港人氣甜品專家</small></h1>
+            <h1>銀杏館<small>Gingko House • 支持長者就業的社會企業</small></h1>
         </div>
     </header>
 
     <div class="container">
         <div class="shop-info">
-            <h2>關於松記糖水</h2>
-            <p>松記糖水創立於1995年，從街邊小攤發展成為香港最具人氣的甜品連鎖店之一。我們以創意甜品聞名，堅持每日新鮮製作，選用優質食材，為顧客帶來獨特的甜品體驗。</p>
-            <p>「松記」之名取自創辦人對松樹堅毅精神的嚮往，象徵我們對甜品品質的堅持。</p>
-            <p class="signature">—— 創新甜品 • 傳統滋味 ——</p>
+            <h2>關於銀杏館</h2>
+            <p>銀杏館成立於2003年，是香港首間致力於推動長者就業的社會企業。我們深信長者是社會的寶貴資產，透過提供合適的工作機會，讓他們能夠善用豐富的人生經驗，重拾自信與尊嚴。</p>
+            <p>我們的業務多元化，包括餐館、有機農莊、食品製造、餐飲到會等，每一項業務都秉持「營商創福利」的理念，以實際行動關懷長者，同時為顧客提供健康美味的餐飲體驗。</p>
+            <p class="signature">—— 活出耆年 • 共享美食 ——</p>
         </div>
 
         <div class="map-container">
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d167017.22885408884!2d114.08894398172949!3d22.33118106422831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z5p2-6KiY57OW5rC0!5e0!3m2!1szh-TW!2shk!4v1750820200621!5m2!1szh-TW!2shk" 
-                allowfullscreen 
-                loading="lazy" 
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236214.39893902347!2d113.88279427306354!3d22.352771542385154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3403f8e5f5f5f5f5%3A0x88f5f5f5f5f5f5f5!2sHong%20Kong!5e0!3m2!1sen!2shk!4v1678901234567!5m2!1sen!2shk"
+                allowfullscreen
+                loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
         </div>
 
         <div class="location-info">
-            <h2>店鋪資訊</h2>
-            <p>地址：香港佐敦白加士街23號地下</p>
-            <p>電話：+852 6789 0123</p>
-            <p>營業時間：<span class="opening-hours">15:00 - 01:00 (凌晨)</span></p>
+            <h2>店鋪資訊 (油麻地店)</h2>
+            <p>地址：九龍油麻地彌敦道383號平安大樓1字樓</p>
+            <p>電話：+852 2789 3321</p>
+            <p>營業時間：<span class="opening-hours">11:00 - 14:30 (午市) / 18:00 - 22:00 (晚市)</span></p>
+            <p><em>銀杏館有多間分店，此處僅為其中一間代表。</em></p>
         </div>
 
         <div class="special-offer">
-            <h3 style="color: var(--sung-kee-green); margin-top: 0;">夏日限定 | 精選優惠</h3>
-            <p>凡購買任何甜品兩份，即送傳統芝麻糊一碗 (價值HKD 22)</p>
+            <h3 style="color: var(--gingko-green); margin-top: 0;">愛心飯盒計劃</h3>
+            <p>您可透過「愛心飯盒」計劃，資助有需要的人士享用營養餐點，一同支持社會共融。</p>
+            <p>詳情請向店員查詢或瀏覽銀杏館網站。</p>
         </div>
 
-        <h2 style="text-align: center; color: var(--sung-kee-brown); margin-top: 50px;">招牌甜品</h2>
-        <div class="dessert-menu">
+        <h2 style="text-align: center; color: var(--gingko-brown); margin-top: 50px;">精選菜式</h2>
+        <div class="menu-grid">
             <div class="menu-item">
-                <div class="tag">必食之選</div>
-                <img src="https://example.com/mango-pomelo-sago.jpg" alt="楊枝甘露">
+                <div class="tag">滋補之選</div>
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=羊肚菌雲耳蒸雞" alt="羊肚菌雲耳蒸雞">
                 <div class="menu-content">
-                    <h3>楊枝甘露</h3>
-                    <p>新鮮芒果配柚子肉和西米，松記招牌甜品</p>
-                    <p class="price">HKD 38</p>
+                    <h3>羊肚菌雲耳蒸雞</h3>
+                    <p>滋補養生，嚴選新鮮雞隻與珍貴羊肚菌。</p>
+                    <p class="price">HKD 108</p>
                 </div>
             </div>
             <div class="menu-item">
-                <div class="tag">創新口味</div>
-                <img src="https://example.com/durian-pancake.jpg" alt="榴槤班戟">
+                <div class="tag">經典港味</div>
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=柱侯蘿蔔燜牛腩" alt="柱侯蘿蔔燜牛腩">
                 <div class="menu-content">
-                    <h3>榴槤班戟</h3>
-                    <p>馬來西亞貓山王榴槤配鮮奶油，口感濃郁</p>
-                    <p class="price">HKD 52</p>
+                    <h3>柱侯蘿蔔燜牛腩</h3>
+                    <p>慢火細燉牛腩，配以清甜蘿蔔，入味軟糯。</p>
+                    <p class="price">HKD 68</p>
                 </div>
             </div>
             <div class="menu-item">
-                <img src="https://example.com/black-sesame-soup.jpg" alt="芝麻糊">
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=古法天然醬油雞" alt="古法天然醬油雞">
                 <div class="menu-content">
-                    <h3>傳統芝麻糊</h3>
-                    <p>手磨芝麻糊，香濃滑順，可選熱/凍</p>
-                    <p class="price">HKD 22</p>
+                    <h3>古法天然醬油雞</h3>
+                    <p>傳統秘製醬油，雞肉嫩滑多汁，香氣撲鼻。</p>
+                    <p class="price">HKD 78</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="tag">素食精選</div>
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=有機時蔬" alt="有機時蔬">
+                <div class="menu-content">
+                    <h3>有機時蔬</h3>
+                    <p>樂活有機農莊直送，新鮮時令有機蔬菜。</p>
+                    <p class="price">HKD 58</p>
+                </div>
+            </div>
+             <div class="menu-item">
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=乾炒牛河" alt="乾炒牛河">
+                <div class="menu-content">
+                    <h3>乾炒牛河</h3>
+                    <p>鑊氣十足，牛肉鮮嫩，河粉彈牙。</p>
+                    <p class="price">HKD 88</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://via.placeholder.com/400x200/cccccc/ffffff?text=紅酒燴牛尾" alt="紅酒燴牛尾">
+                <div class="menu-content">
+                    <h3>紅酒燴牛尾</h3>
+                    <p>以紅酒慢燉牛尾，肉質軟腍，滋味濃郁。</p>
+                    <p class="price">HKD 98</p>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2023 松記糖水 版權所有</p>
-        <p>創新甜品 • 傳統手藝 • 香港味道</p>
+        <p>© 2025 銀杏館 版權所有</p>
+        <p>社會企業 • 長者就業 • 共享成果</p>
     </footer>
 </body>
 </html>
