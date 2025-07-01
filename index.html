@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羅富記粥麵專家 | 香港傳統美食</title>
+    <style>
+        :root {
+            --tofu-brown: #8d6e63;
+            --tofu-beige: #efebe9;
+            --tofu-red: #c62828;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--tofu-beige);
+            color: #5d4037;
+            line-height: 1.7;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--tofu-brown), #6d4c41);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🍜";
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            right: 30px;
+            top: 10px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .shop-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--tofu-red);
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 35px 0;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border: 3px solid var(--tofu-brown);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .menu-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .menu-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--tofu-brown);
+        }
+        .menu-content {
+            padding: 20px;
+        }
+        .menu-content h3 {
+            color: var(--tofu-red);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px dashed var(--tofu-brown);
+            padding-bottom: 8px;
+        }
+        .price {
+            color: var(--tofu-brown);
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .location-info {
+            background: #f5efea;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-top: 4px solid var(--tofu-red);
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--tofu-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(to right, var(--tofu-brown), #5d4037);
+            color: white;
+            margin-top: 60px;
+        }
+        .signature {
+            font-style: italic;
+            color: var(--tofu-brown);
+            text-align: right;
+            margin-top: 20px;
+        }
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--tofu-red);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .menu-section { grid-template-columns: 1fr; }
+            .header { padding: 2rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>羅富記粥麵專家<small>傳統港式風味 • 五十載傳承</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="shop-info">
+            <h2>關於羅富記粥麵專家</h2>
+            <p>羅富記粥麵專家創立於1970年代，從一家街邊小店成長為香港深受歡迎的粥麵名店。我們堅持每日熬製濃香粥底，選用新鮮食材，為顧客呈現正宗港式滋味。</p>
+            <p>「羅富記」由羅氏家族創辦，現由第二代傳人經營，秉承傳統配方與手藝，致力為您帶來一碗碗暖心又美味的粥麵。</p>
+            <p class="signature">—— 真材實料 用心熬製 ——</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.473243316697!2d114.16461531500001!3d22.327984985308893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404014e0a7a2b7b%3A0x1c4b7b7d9f8e4c8a!2z5rex5rC05Y2X5Y2A!5e0!3m2!1szh-TW!2shk!4v1750819960214!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="location-info">
+            <h2>店鋪資訊</h2>
+            <p>地址：香港旺角花園街123號地下</p>
+            <p>電話：+852 2345 6789</p>
+            <p>營業時間：<span class="opening-hours">07:00 - 22:00 (售完即止)</span></p>
+        </div>
+
+        <h2 style="text-align: center; color: var(--tofu-brown); margin-top: 50px;">招牌美食</h2>
+        <div class="menu-section">
+            <div class="menu-item">
+                <div class="tag">必食之選</div>
+                <img src="https://example.com/congee.jpg" alt="皮蛋瘦肉粥">
+                <div class="menu-content">
+                    <h3>皮蛋瘦肉粥</h3>
+                    <p>香濃粥底配皮蛋及嫩滑瘦肉，經典港式風味</p>
+                    <p class="price">HKD 28</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="tag">人氣推薦</div>
+                <img src="https://example.com/beef-noodle.jpg" alt="牛腩撈麵">
+                <div class="menu-content">
+                    <h3>牛腩撈麵</h3>
+                    <p>慢燉牛腩配彈牙麵條，濃郁湯汁令人回味</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://example.com/wonton-noodle.jpg" alt="鮮蝦雲吞麵">
+                <div class="menu-content">
+                    <h3>鮮蝦雲吞麵</h3>
+                    <p>手包鮮蝦雲吞搭配彈牙細麵，湯清味鮮</p>
+                    <p class="price">HKD 35</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 羅富記粥麵專家 版權所有</p>
+        <p>傳統手藝 • 五十載傳承 • 香港味道</p>
+    </footer>
+</body>
+</html>
