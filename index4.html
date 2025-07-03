@@ -1,126 +1,554 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic HTML Loader</title>
+    <title>香港美食地图 | 探索地道美味</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', 'PingFang SC', sans-serif;
+        }
+        
+        :root {
+            --primary: #e74c3c;
+            --secondary: #2c3e50;
+            --accent: #f39c12;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
             color: #333;
-        }
-        h1 {
-            color: #0056b3;
-        }
-        .button-container {
-            margin-bottom: 20px;
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            flex-wrap: wrap; /* Allows buttons to wrap to the next line */
-            gap: 10px; /* Space between buttons */
-        }
-        .button-container button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        .button-container button:hover {
-            background-color: #0056b3;
-        }
-        .button-container button:active {
-            background-color: #004085;
-        }
-        #content-area {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            min-height: 300px; /* Give it some initial height */
-            overflow: auto; /* For scrollable content */
-        }
-        #content-area h2 {
-            margin-top: 0;
-            color: #007bff;
-        }
-        /* Basic styling for content loaded from external files (optional) */
-        #content-area p, #content-area ul, #content-area ol {
             line-height: 1.6;
         }
-        #content-area img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 10px 0;
-            border-radius: 5px;
+        
+        header {
+            background: linear-gradient(to right, var(--secondary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        nav a:hover, nav a.active {
+            background: var(--accent);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            display: inline-block;
+            padding: 0 20px;
+            background: linear-gradient(to right, transparent, var(--light), transparent);
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 2rem 0;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 2rem 0;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-img {
+            height: 200px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .card-content p {
+            color: #666;
+            margin-bottom: 15px;
+            min-height: 72px;
+        }
+        
+        .tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .map-container {
+            height: 600px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        #main-map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            z-index: 10;
+            max-width: 300px;
+        }
+        
+        .map-overlay h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        .restaurant-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .restaurant-list div {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .restaurant-list div:hover {
+            background: var(--light);
+        }
+        
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        
+        .copyright {
+            padding-top: 1rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .restaurants-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-container {
+                height: 500px;
+            }
+            
+            .map-overlay {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 100%;
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-
-    <h1>餐廳</h1>
-
-    <div class="button-container">
-        <button onclick="loadContent('file1.html')">羅富記粥麵</button>
-        <button onclick="loadContent('file2.html')">吉野家</button>
-        <button onclick="loadContent('file3.html')">大家樂</button>
-        <button onclick="loadContent('file4.html')">大快活</button>
-        <button onclick="loadContent('file5.html')">新記雞粥</button>
-        <button onclick="loadContent('file6.html')">籠太子點心專門店</button>
-        <button onclick="loadContent('file7.html')">Load File 7</button>
-    </div>
-
-    <div id="content-area">
-        <p>Select a file to load its content here.</p>
-    </div>
-
+    <!-- 顶部导航 -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <div>
+                    <h1>香港美食地图</h1>
+                    <div class="tagline">探索地道香港美味</div>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">首页</a></li>
+                    <li><a href="#restaurants">餐厅</a></li>
+                    <li><a href="#map">美食地图</a></li>
+                    <li><a href="#">排行榜</a></li>
+                    <li><a href="#">优惠</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主横幅区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>探索香港地道美食</h2>
+            <p>从传统点心到街头小吃，从米其林餐厅到街边大排档，香港这座美食天堂总能满足您的味蕾</p>
+            <a href="#restaurants" class="btn">探索餐厅</a>
+        </div>
+    </section>
+    
+    <!-- 餐厅列表 -->
+    <section class="container" id="restaurants">
+        <div class="section-title">
+            <h2>精选餐厅</h2>
+        </div>
+        
+        <div class="filters">
+            <button class="filter-btn active">全部</button>
+            <button class="filter-btn">粤菜</button>
+            <button class="filter-btn">点心</button>
+            <button class="filter-btn">甜品</button>
+            <button class="filter-btn">快餐</button>
+            <button class="filter-btn">日本料理</button>
+        </div>
+        
+        <div class="restaurants-grid">
+            <!-- 新记鸡粥 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1625944525533-473f1f7f4e7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');"></div>
+                <div class="card-content">
+                    <h3>新记鸡粥</h3>
+                    <p>创立于1985年的传统粥品专家，招牌鸡粥以慢火熬制8小时，粥底绵滑，鸡肉鲜嫩。</p>
+                    <div class="tags">
+                        <span class="tag">粤菜</span>
+                        <span class="tag">粥品</span>
+                        <span class="tag">老字号</span>
+                    </div>
+                    <a href="new-kei-chicken-congee.html" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 吉野家 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');"></div>
+                <div class="card-content">
+                    <h3>吉野家</h3>
+                    <p>创立于1899年的日本牛丼连锁店，招牌牛丼选用优质牛肉和秘制酱汁，带来正宗日式丼饭体验。</p>
+                    <div class="tags">
+                        <span class="tag">日本料理</span>
+                        <span class="tag">快餐</span>
+                        <span class="tag">牛丼</span>
+                    </div>
+                    <a href="yoshinoya.html" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 笼太子点心专门店 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1625944525533-473f1f7f4e7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');"></div>
+                <div class="card-content">
+                    <h3>笼太子点心专门店</h3>
+                    <p>坚持传统手工制作，所有点心每日新鲜制作，带来最地道的港式点心体验。</p>
+                    <div class="tags">
+                        <span class="tag">点心</span>
+                        <span class="tag">粤菜</span>
+                        <span class="tag">手工制作</span>
+                    </div>
+                    <a href="lung-tai-tim-dim-sum.html" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 大快活 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80');"></div>
+                <div class="card-content">
+                    <h3>大快活</h3>
+                    <p>香港主要连锁快餐店之一，以"香港人嘅快餐店"为定位，提供多元化、高品质而价格相宜的中西美食。</p>
+                    <div class="tags">
+                        <span class="tag">快餐</span>
+                        <span class="tag">烧味</span>
+                        <span class="tag">连锁</span>
+                    </div>
+                    <a href="fairwood.html" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 亚婆豆腐花 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1626082927389-6cd097cee6a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');"></div>
+                <div class="card-content">
+                    <h3>亚婆豆腐花</h3>
+                    <p>创立于1960年代，坚持使用优质黄豆，每日新鲜制作，保留最传统的风味和口感。</p>
+                    <div class="tags">
+                        <span class="tag">甜品</span>
+                        <span class="tag">传统糖水</span>
+                        <span class="tag">豆腐花</span>
+                    </div>
+                    <a href="ah-po-tofu-fa.html" class="btn">查看详情</a>
+                </div>
+            </div>
+            
+            <!-- 松记糖水 -->
+            <div class="restaurant-card">
+                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1560008581-09826d1de69e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1144&q=80');"></div>
+                <div class="card-content">
+                    <h3>松记糖水</h3>
+                    <p>香港最具人气的甜品连锁店之一，以创意甜品闻名，坚持每日新鲜制作，带来独特的甜品体验。</p>
+                    <div class="tags">
+                        <span class="tag">甜品</span>
+                        <span class="tag">糖水</span>
+                        <span class="tag">创新</span>
+                    </div>
+                    <a href="sung-kee-dessert.html" class="btn">查看详情</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 美食地图 -->
+    <section class="container" id="map">
+        <div class="section-title">
+            <h2>美食地图</h2>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-overlay">
+                <h3>餐厅位置</h3>
+                <div class="restaurant-list">
+                    <div>新记鸡粥 - 深水埗北河街118号</div>
+                    <div>吉野家 - 数码港道100号数码港商场</div>
+                    <div>笼太子点心专门店 - 数码港道100号数码港商场3楼</div>
+                    <div>大快活 - 数码港道100号数码港商场地下</div>
+                    <div>亚婆豆腐花 - 深水埗北河街118号地下</div>
+                    <div>松记糖水 - 佐敦白加士街23号地下</div>
+                </div>
+            </div>
+            <iframe id="main-map" src="https://www.google.com/maps/d/embed?mid=1lZ2UJYvW6d8d4sX8j4X0z2q2Z2Z2Z2Z2&ehbc=2E312F" frameborder="0"></iframe>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2023 香港美食地图 版权所有</p>
+            </div>
+        </div>
+    </footer>
+    
     <script>
-        /**
-         * Loads content from a specified HTML file into the #content-area div.
-         * @param {string} fileName The name of the HTML file to load (e.g., 'file1.html').
-         */
-        async function loadContent(fileName) {
-            const contentArea = document.getElementById('content-area');
-            contentArea.innerHTML = '<h2>Loading...</h2><p>Please wait while content is being fetched.</p>'; // Show loading message
-
-            try {
-                const response = await fetch(fileName);
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+        // 筛选功能
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // 为当前点击的按钮添加active类
+                this.classList.add('active');
+                
+                // 这里可以添加实际的筛选逻辑
+            });
+        });
+        
+        // 餐厅列表点击事件
+        document.querySelectorAll('.restaurant-list div').forEach(item => {
+            item.addEventListener('click', function() {
+                // 这里可以添加地图定位功能
+                alert('定位到: ' + this.textContent);
+            });
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
                 }
-
-                const htmlContent = await response.text();
-
-                // Inject the content into the div
-                // You might want to parse and extract only the <body> content if your files are full HTML documents.
-                // For simplicity, this example injects the whole file content.
-                // If you only want the body:
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlContent, 'text/html');
-                const bodyContent = doc.body.innerHTML;
-
-                contentArea.innerHTML = `<h2>Content from: ${fileName}</h2>` + bodyContent;
-
-            } catch (error) {
-                console.error('Error loading content:', error);
-                contentArea.innerHTML = `
-                    <h2>Error Loading Content</h2>
-                    <p>Could not load <strong>${fileName}</strong>. Please ensure the file exists and is accessible.</p>
-                    <p>Details: ${error.message}</p>
-                `;
-            }
-        }
+            });
+        });
     </script>
-
 </body>
 </html>
