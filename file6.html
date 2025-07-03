@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>籠太子點心專門店 | 香港地道點心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --dim-sum-green: #2e8b57;
@@ -11,11 +12,12 @@
             --dim-sum-red: #d22b2b;
         }
         body {
-            font-family: 'Microsoft JhengHei', 'PingFang SC', sans-serif;
+            font-family: 'Microsoft JhengHei', 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #fff9f0;
+            background-color: #f9f9f9;
             color: #333;
+            line-height: 1.6;
         }
         .header {
             background: linear-gradient(135deg, var(--dim-sum-green), var(--dim-sum-gold));
@@ -29,7 +31,7 @@
             content: "🥟";
             position: absolute;
             font-size: 120px;
-            opacity: 0.15;
+            opacity: 0.1;
             right: 30px;
             top: 10px;
         }
@@ -57,7 +59,6 @@
             margin: 30px 0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             border-left: 6px solid var(--dim-sum-red);
-            line-height: 1.8;
         }
         .map-container {
             position: relative;
@@ -119,7 +120,7 @@
             margin-top: 10px;
         }
         .branch-info {
-            background: #f8f4e8;
+            background: #f0fff0;
             padding: 25px;
             border-radius: 10px;
             margin: 30px 0;
@@ -127,7 +128,7 @@
         }
         .opening-hours {
             display: inline-block;
-            background: var(--dim-sum-green);
+            background: var(--dim-sum-red);
             color: white;
             padding: 10px 20px;
             border-radius: 25px;
@@ -151,6 +152,20 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--dim-sum-red);
+            transform: translateY(-3px);
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
@@ -218,6 +233,12 @@
                     <p class="price">HKD 28</p>
                 </div>
             </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
         </div>
     </div>
 
