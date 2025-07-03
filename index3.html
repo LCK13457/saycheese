@@ -57,7 +57,7 @@
             .filter(([_, value]) => value)
             .map(([key]) => key);
 
-          const prompt = `請提供${foodName}的營養信息，包括卡路里、蛋白質、脂肪、碳水化合物、鈉和糖。${
+          const prompt = `請提供${foodName}簡短的營養信息，包括卡路里、蛋白質、脂肪、碳水化合物、鈉和糖。${
             activeConditions.length > 0
               ? `並分析對${activeConditions.join(', ')}的適合性。`
               : ''
