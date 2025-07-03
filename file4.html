@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>大快活 | 香港地道快餐</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --fairwood-orange: #ff6b00;
@@ -158,6 +159,20 @@
             margin: 20px 0;
             border-left: 4px solid var(--fairwood-yellow);
         }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--fairwood-orange);
+            transform: translateY(-3px);
+        }
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .container { padding: 15px; }
@@ -229,6 +244,12 @@
                     <p class="price">HKD 45</p>
                 </div>
             </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
         </div>
     </div>
 
