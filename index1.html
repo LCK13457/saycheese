@@ -331,7 +331,7 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
 
-                        // Draw the image onto the canvas - THIS IS THE CRUCIAL MISSING LINE
+                        // Draw the image onto the canvas
                         ctx.drawImage(img, 0, 0, width, height); 
 
                         const outputMimeType = file.type && file.type.startsWith('image/') ? file.type : 'image/jpeg';
@@ -407,7 +407,8 @@
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${API_TOKEN}`,
                         'HTTP-Referer': window.location.href,
-                        'X-Title': '食物辨識器應用程式' // This title is for OpenRouter's attribution
+                        // Removed 'X-Title' header as it caused the ISO-8859-1 error
+                        // 'X-Title': '食物辨識器應用程式' 
                     },
                     body: JSON.stringify(payload)
                 });
