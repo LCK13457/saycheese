@@ -220,15 +220,15 @@
                 uploadFirst: '請先上傳圖片。',
                 apiError: 'OpenRouter API 錯誤:',
                 httpError: 'HTTP 錯誤:',
-                noInfo: '未能解析食物資訊。原始回應可能未按預期格式。', // Updated message
+                noInfo: '未能解析食物資訊。原始回應可能未按預期格式。',
                 generalError: '錯誤：',
                 tryAgain: '。請再試一次。',
-                // These are used for display, but the prompt now requests them from the model directly
+                rateLimitError: '請求過於頻繁。請稍後再試，或在 OpenRouter 上添加您自己的 API 密鑰以獲得更高限額。', // New specific message
                 foodNamePrefix: '食物名稱：',
                 ingredientsPrefix: '成分：',
                 nutrientsPrefix: '主要營養素：',
-                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？：', // Added colon to match prompt style
-                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：' // Added colon to match prompt style
+                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？：',
+                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：'
             },
             en: {
                 title: 'Food Recognizer',
@@ -243,9 +243,10 @@
                 uploadFirst: 'Please upload an image first.',
                 apiError: 'OpenRouter API Error:',
                 httpError: 'HTTP Error:',
-                noInfo: 'Failed to parse food information. Raw response may not be in expected format.', // Updated message
+                noInfo: 'Failed to parse food information. Raw response may not be in expected format.',
                 generalError: 'Error: ',
                 tryAgain: '. Please try again.',
+                rateLimitError: 'Too many requests. Please try again shortly, or add your own API key on OpenRouter for higher limits.', // New specific message
                 foodNamePrefix: 'Food Name:',
                 ingredientsPrefix: 'Ingredients:',
                 nutrientsPrefix: 'Key Nutrients:',
@@ -372,19 +373,20 @@
         function parseAndFormatResponse(rawText) {
             const lines = rawText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             const foodInfo = {};
+            
             // Using the actual Chinese prefixes from translations for robust parsing
-            const prefixes = {
-                [translations.zh.foodNamePrefix.slice(0, -1)]: 'foodNamePrefix', // Remove trailing colon for key matching
-                [translations.zh.ingredientsPrefix.slice(0, -1)]: 'ingredientsPrefix',
-                [translations.zh.nutrientsPrefix.slice(0, -1)]: 'nutrientsPrefix',
-                [translations.zh.healthyElderlyPrefix.slice(0, -1)]: 'healthyElderlyPrefix',
-                [translations.zh.healthyElderlyDiseasesPrefix.slice(0, -1)]: 'healthyElderlyDiseasesPrefix'
+            const zhPrefixes = {
+                '食物名稱': 'foodNamePrefix',
+                '成分': 'ingredientsPrefix',
+                '主要營養素': 'nutrientsPrefix',
+                '這種食物對老年人來說通常健康嗎？': 'healthyElderlyPrefix',
+                '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？': 'healthyElderlyDiseasesPrefix'
             };
 
             lines.forEach(line => {
-                for (const key in prefixes) {
+                for (const key in zhPrefixes) {
                     if (line.startsWith(key + '：')) { // Check for the Chinese colon
-                        foodInfo[prefixes[key]] = line.substring(key.length + 1).trim(); // +1 for the colon
+                        foodInfo[zhPrefixes[key]] = line.substring(key.length + 1).trim(); // +1 for the colon
                         return;
                     }
                 }
@@ -420,72 +422,11 @@
             try {
                 const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
-                // --- MODIFIED PROMPT TO ASK FOR REASONS ---
+                // Prompt remains the same as previous version, as the issue is not with the prompt's content.
                 const prompt = `請根據提供的圖片，嚴格按照以下格式，只用中文提供以下食物資訊。所有輸出必須是中文，不要包含任何英文或其他語言。
 
 食物名稱：[食物的中文名稱，例如：蘋果、雞肉飯]
 成分：[簡短的中文成分列表，逗號分隔，例如：米、雞肉、醬油、蔬菜]
 主要營養素：[簡短的中文主要營養素列表，逗號分隔，例如：蛋白質、碳水化合物、脂肪、維生素C]
 這種食物對老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為富含纖維。或 否，因為含糖量高。]
-這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為低鈉。或 否，因為脂肪含量高。]
-
-請嚴格遵循上述格式，不要添加額外的文字或編號。`;
-
-                const mimeType = imagePreview.dataset.mimeType || 'image/png';
-
-                const payload = {
-                    "model": "meta-llama/llama-3.2-11b-vision-instruct:free",
-                    "messages": [
-                        { 
-                            "role": "user", 
-                            "content": [
-                                { "type": "text", "text": prompt },
-                                { "type": "image_url", "image_url": { "url": `data:${mimeType};base64,${base64ImageData}` } }
-                            ]
-                        }
-                    ],
-                };
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_TOKEN}`,
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const responseBodyText = await response.text();
-                    let errorDetails = `${translations[currentLanguage].httpError} ${response.status} ${response.statusText}`;
-                    try {
-                        const jsonError = JSON.parse(responseBodyText);
-                        errorDetails += ` - ${JSON.stringify(jsonError)}`;
-                    } catch (e) {
-                        errorDetails += ` - ${responseBodyText}`;
-                    }
-                    throw new Error(`${translations[currentLanguage].apiError} ${errorDetails}`);
-                }
-
-                const result = await response.json();
-
-                if (result && result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
-                    const rawText = result.choices[0].message.content;
-                    resultsArea.innerHTML = parseAndFormatResponse(rawText); // Use the new parsing function
-                } else {
-                    resultsArea.innerHTML = `<p class="text-red-500 text-lg">${translations[currentLanguage].noInfo}</p>`;
-                }
-            } catch (error) {
-                console.error('API Error:', error);
-                resultsArea.innerHTML = `<p class="text-red-500 text-lg">${translations[currentLanguage].generalError}${error.message}${translations[currentLanguage].tryAgain}</p>`;
-            } finally {
-                loadingIndicator.style.display = 'none';
-                detectButton.disabled = false;
-            }
-        });
-
-        // Initialize with Chinese content visible
-        switchLanguage('zh');
-    </script>
-</body>
-</html>
+這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：
