@@ -227,8 +227,8 @@
                 foodNamePrefix: '食物名稱：',
                 ingredientsPrefix: '成分：',
                 nutrientsPrefix: '主要營養素：',
-                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？',
-                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？'
+                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？：', // Added colon to match prompt style
+                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：' // Added colon to match prompt style
             },
             en: {
                 title: 'Food Recognizer',
@@ -249,8 +249,8 @@
                 foodNamePrefix: 'Food Name:',
                 ingredientsPrefix: 'Ingredients:',
                 nutrientsPrefix: 'Key Nutrients:',
-                healthyElderlyPrefix: 'Is this food generally healthy for elderly people?',
-                healthyElderlyDiseasesPrefix: 'Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?'
+                healthyElderlyPrefix: 'Is this food generally healthy for elderly people?:',
+                healthyElderlyDiseasesPrefix: 'Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?:'
             }
         };
 
@@ -372,12 +372,13 @@
         function parseAndFormatResponse(rawText) {
             const lines = rawText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             const foodInfo = {};
+            // Using the actual Chinese prefixes from translations for robust parsing
             const prefixes = {
-                '食物名稱': 'foodNamePrefix',
-                '成分': 'ingredientsPrefix',
-                '主要營養素': 'nutrientsPrefix',
-                '這種食物對老年人來說通常健康嗎？': 'healthyElderlyPrefix',
-                '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？': 'healthyElderlyDiseasesPrefix'
+                [translations.zh.foodNamePrefix.slice(0, -1)]: 'foodNamePrefix', // Remove trailing colon for key matching
+                [translations.zh.ingredientsPrefix.slice(0, -1)]: 'ingredientsPrefix',
+                [translations.zh.nutrientsPrefix.slice(0, -1)]: 'nutrientsPrefix',
+                [translations.zh.healthyElderlyPrefix.slice(0, -1)]: 'healthyElderlyPrefix',
+                [translations.zh.healthyElderlyDiseasesPrefix.slice(0, -1)]: 'healthyElderlyDiseasesPrefix'
             };
 
             lines.forEach(line => {
@@ -419,15 +420,14 @@
             try {
                 const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
-                // --- MODIFIED PROMPT ---
-                // Strengthened instructions for Chinese-only and specific formatting
+                // --- MODIFIED PROMPT TO ASK FOR REASONS ---
                 const prompt = `請根據提供的圖片，嚴格按照以下格式，只用中文提供以下食物資訊。所有輸出必須是中文，不要包含任何英文或其他語言。
 
 食物名稱：[食物的中文名稱，例如：蘋果、雞肉飯]
 成分：[簡短的中文成分列表，逗號分隔，例如：米、雞肉、醬油、蔬菜]
 主要營養素：[簡短的中文主要營養素列表，逗號分隔，例如：蛋白質、碳水化合物、脂肪、維生素C]
-這種食物對老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因]
-這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因]
+這種食物對老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為富含纖維。或 否，因為含糖量高。]
+這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為低鈉。或 否，因為脂肪含量高。]
 
 請嚴格遵循上述格式，不要添加額外的文字或編號。`;
 
@@ -451,10 +451,6 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${API_TOKEN}`,
-                        // Removed 'HTTP-Referer' header. This was the source of the ISO-8859-1 error
-                        // 'HTTP-Referer': window.location.href, 
-                        // 'X-Title' header is also removed for safety, as it contained non-ASCII chars
-                        // If OpenRouter needs attribution, use an English-only title or check their docs for proper encoding
                     },
                     body: JSON.stringify(payload)
                 });
