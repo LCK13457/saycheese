@@ -28,20 +28,24 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4 text-lg"> <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md border border-gray-200">
+<body class="flex items-center justify-center min-h-screen p-4 text-2xl">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md border border-gray-200">
         <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Food Information App</h1>
 
         <div class="mb-6">
-            <label for="foodNameInput" class="block text-gray-700 text-lg font-semibold mb-2">Enter Food Name:</label> <input
+            <label for="foodNameInput" class="block text-gray-700 text-2xl font-semibold mb-2">Enter Food Name:</label>
+            <input
                 type="text"
                 id="foodNameInput"
                 placeholder="e.g., Apple, Chicken Breast, Oatmeal"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 text-lg" >
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 text-2xl"
+            >
         </div>
 
         <button
             id="searchButton"
-            class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md hover:shadow-lg text-lg" >
+            class="w-full bg-blue-600 text-white py-3 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md hover:shadow-lg text-2xl"
+        >
             Get Info
         </button>
 
@@ -55,9 +59,11 @@
             </div>
         </div>
 
-        <div id="resultsDisplay" class="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-md shadow-inner min-h-[150px] max-h-[400px] overflow-y-auto scrollable-content text-gray-800 text-xl leading-relaxed whitespace-pre-wrap"> <p class="text-gray-500 italic">Enter a food name above and click "Get Info" to see details.</p>
+        <div id="resultsDisplay" class="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-md shadow-inner min-h-[150px] max-h-[400px] overflow-y-auto scrollable-content text-gray-800 text-2xl leading-relaxed whitespace-pre-wrap">
+            <p class="text-gray-500 italic">Enter a food name above and click "Get Info" to see details.</p>
         </div>
     </div>
+</body>
 
     <script type="module">
         // Get references to HTML elements
