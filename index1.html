@@ -406,7 +406,8 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${API_TOKEN}`,
-                        'HTTP-Referer': window.location.href,
+                        // Removed 'HTTP-Referer' as it can cause issues with non-ASCII characters in local file paths
+                        // 'HTTP-Referer': window.location.href, 
                         // Removed 'X-Title' header as it caused the ISO-8859-1 error
                         // 'X-Title': '食物辨識器應用程式' 
                     },
