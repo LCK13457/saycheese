@@ -429,4 +429,75 @@
 成分：[簡短的中文成分列表，逗號分隔，例如：米、雞肉、醬油、蔬菜]
 主要營養素：[簡短的中文主要營養素列表，逗號分隔，例如：蛋白質、碳水化合物、脂肪、維生素C]
 這種食物對老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為富含纖維。或 否，因為含糖量高。]
-這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：
+這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因，例如：是，因為低鈉。或 否，因為脂肪含量高。]
+
+請嚴格遵循上述格式，不要添加額外的文字或編號。`;
+
+                const mimeType = imagePreview.dataset.mimeType || 'image/png';
+
+                const payload = {
+                    "model": "meta-llama/llama-3.2-11b-vision-instruct:free",
+                    "messages": [
+                        { 
+                            "role": "user", 
+                            "content": [
+                                { "type": "text", "text": prompt },
+                                { "type": "image_url", "image_url": { "url": `data:${mimeType};base64,${base64ImageData}` } }
+                            ]
+                        }
+                    ],
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_TOKEN}`,
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const responseBodyText = await response.text();
+                    let errorDetails = `${translations[currentLanguage].httpError} ${response.status} ${response.statusText}`;
+                    try {
+                        const jsonError = JSON.parse(responseBodyText);
+                        // Check if the error is specifically a 429 rate limit error
+                        if (response.status === 429) {
+                            errorDetails = translations[currentLanguage].rateLimitError;
+                        } else {
+                            errorDetails += ` - ${JSON.stringify(jsonError)}`;
+                        }
+                    } catch (e) {
+                        errorDetails += ` - ${responseBodyText}`;
+                    }
+                    throw new Error(`${translations[currentLanguage].apiError} ${errorDetails}`);
+                }
+
+                const result = await response.json();
+
+                if (result && result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
+                    const rawText = result.choices[0].message.content;
+                    resultsArea.innerHTML = parseAndFormatResponse(rawText);
+                } else {
+                    resultsArea.innerHTML = `<p class="text-red-500 text-lg">${translations[currentLanguage].noInfo}</p>`;
+                }
+            } catch (error) {
+                console.error('API Error:', error);
+                // Display the specific rate limit message if it was caught
+                if (error.message.includes(translations[currentLanguage].rateLimitError)) {
+                    resultsArea.innerHTML = `<p class="text-red-500 text-lg">${error.message}</p>`;
+                } else {
+                    resultsArea.innerHTML = `<p class="text-red-500 text-lg">${translations[currentLanguage].generalError}${error.message}${translations[currentLanguage].tryAgain}</p>`;
+                }
+            } finally {
+                loadingIndicator.style.display = 'none';
+                detectButton.disabled = false;
+            }
+        });
+
+        // Initialize with Chinese content visible
+        switchLanguage('zh');
+    </script>
+</body>
+</html>
