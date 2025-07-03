@@ -220,14 +220,15 @@
                 uploadFirst: '請先上傳圖片。',
                 apiError: 'OpenRouter API 錯誤:',
                 httpError: 'HTTP 錯誤:',
-                noInfo: '未生成食物資訊或 OpenRouter API 回應結構異常。',
+                noInfo: '未能解析食物資訊。原始回應可能未按預期格式。', // Updated message
                 generalError: '錯誤：',
                 tryAgain: '。請再試一次。',
-                foodName: '1. 食物名稱：',
-                ingredients: '2. 成分：',
-                nutrients: '3. 主要營養素：',
-                healthyElderly: '4. 這種食物對老年人來說通常健康嗎？',
-                healthyElderlyDiseases: '5. 這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？'
+                // These are used for display, but the prompt now requests them from the model directly
+                foodNamePrefix: '食物名稱：',
+                ingredientsPrefix: '成分：',
+                nutrientsPrefix: '主要營養素：',
+                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？',
+                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？'
             },
             en: {
                 title: 'Food Recognizer',
@@ -242,14 +243,14 @@
                 uploadFirst: 'Please upload an image first.',
                 apiError: 'OpenRouter API Error:',
                 httpError: 'HTTP Error:',
-                noInfo: 'No food information generated or unexpected OpenRouter API response structure.',
+                noInfo: 'Failed to parse food information. Raw response may not be in expected format.', // Updated message
                 generalError: 'Error: ',
                 tryAgain: '. Please try again.',
-                foodName: '1. Food Name:',
-                ingredients: '2. Ingredients:',
-                nutrients: '3. Key Nutrients:',
-                healthyElderly: '4. Is this food generally healthy for elderly people?',
-                healthyElderlyDiseases: '5. Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?'
+                foodNamePrefix: 'Food Name:',
+                ingredientsPrefix: 'Ingredients:',
+                nutrientsPrefix: 'Key Nutrients:',
+                healthyElderlyPrefix: 'Is this food generally healthy for elderly people?',
+                healthyElderlyDiseasesPrefix: 'Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?'
             }
         };
 
@@ -282,6 +283,7 @@
                 imagePreview.src = '#';
                 imagePreview.style.display = 'none';
                 base64ImageData = '';
+                imageUpload.value = ''; // Clear file input
                 imagePreview.dataset.mimeType = '';
             }
             detectButton.disabled = true;
@@ -366,6 +368,40 @@
             }
         });
 
+        // Function to parse and format the AI's response
+        function parseAndFormatResponse(rawText) {
+            const lines = rawText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+            const foodInfo = {};
+            const prefixes = {
+                '食物名稱': 'foodNamePrefix',
+                '成分': 'ingredientsPrefix',
+                '主要營養素': 'nutrientsPrefix',
+                '這種食物對老年人來說通常健康嗎？': 'healthyElderlyPrefix',
+                '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？': 'healthyElderlyDiseasesPrefix'
+            };
+
+            lines.forEach(line => {
+                for (const key in prefixes) {
+                    if (line.startsWith(key + '：')) { // Check for the Chinese colon
+                        foodInfo[prefixes[key]] = line.substring(key.length + 1).trim(); // +1 for the colon
+                        return;
+                    }
+                }
+            });
+
+            let formattedOutput = '';
+            if (Object.keys(foodInfo).length > 0) {
+                formattedOutput += `<p class="font-bold">${translations[currentLanguage].foodNamePrefix}${foodInfo.foodNamePrefix || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].ingredientsPrefix}</span>${foodInfo.ingredientsPrefix || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].nutrientsPrefix}</span>${foodInfo.nutrientsPrefix || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyPrefix}</span> ${foodInfo.healthyElderlyPrefix || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyDiseasesPrefix}</span> ${foodInfo.healthyElderlyDiseasesPrefix || 'N/A'}</p>`;
+            } else {
+                formattedOutput = `<p class="text-red-500 text-lg">${translations[currentLanguage].noInfo}</p><p class="text-gray-600 text-sm mt-2">原始回應：<br>${rawText.replace(/\n/g, '<br>')}</p>`;
+            }
+            return `<div class="fade-in">${formattedOutput}</div>`;
+        }
+
         // Event listener for the detect button
         detectButton.addEventListener('click', async function() {
             const encodedstring = 'c2stb3ItdjEtYTI2ZDNjOTllMDI4NWY2NzZjMjdhZTM0Nzg4M2M2ZThlNmY4ZTY2YTJjMGNjOTBhYTBkMTIxOGFkNTA2YTJkOQ==';
@@ -383,8 +419,17 @@
             try {
                 const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
-                // Construct the prompt in Chinese
-                const prompt = "根據圖片，提供以下資訊：\n1. 食物名稱（中文）：\n2. 成分（簡短，逗號分隔，中文）：\n3. 主要營養素（簡短，逗號分隔，中文）：\n4. 這種食物對老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。\n5. 這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。";
+                // --- MODIFIED PROMPT ---
+                // Strengthened instructions for Chinese-only and specific formatting
+                const prompt = `請根據提供的圖片，嚴格按照以下格式，只用中文提供以下食物資訊。所有輸出必須是中文，不要包含任何英文或其他語言。
+
+食物名稱：[食物的中文名稱，例如：蘋果、雞肉飯]
+成分：[簡短的中文成分列表，逗號分隔，例如：米、雞肉、醬油、蔬菜]
+主要營養素：[簡短的中文主要營養素列表，逗號分隔，例如：蛋白質、碳水化合物、脂肪、維生素C]
+這種食物對老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因]
+這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：[中文回答「是」或「否」，並附上非常簡短的中文原因]
+
+請嚴格遵循上述格式，不要添加額外的文字或編號。`;
 
                 const mimeType = imagePreview.dataset.mimeType || 'image/png';
 
@@ -406,10 +451,10 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${API_TOKEN}`,
-                        // Removed 'HTTP-Referer' as it can cause issues with non-ASCII characters in local file paths
+                        // Removed 'HTTP-Referer' header. This was the source of the ISO-8859-1 error
                         // 'HTTP-Referer': window.location.href, 
-                        // Removed 'X-Title' header as it caused the ISO-8859-1 error
-                        // 'X-Title': '食物辨識器應用程式' 
+                        // 'X-Title' header is also removed for safety, as it contained non-ASCII chars
+                        // If OpenRouter needs attribution, use an English-only title or check their docs for proper encoding
                     },
                     body: JSON.stringify(payload)
                 });
@@ -430,26 +475,7 @@
 
                 if (result && result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
                     const rawText = result.choices[0].message.content;
-                    // Parse the raw text to extract and format specific information
-                    const lines = rawText.split('\n').filter(line => line.trim() !== '');
-
-                    let formattedOutput = '';
-                    lines.forEach(line => {
-                        if (line.startsWith('1. ')) {
-                            formattedOutput += `<p class="font-bold">${translations[currentLanguage].foodName}${line.substring(3).trim()}</p>`;
-                        } else if (line.startsWith('2. ')) {
-                            formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].ingredients}</span>${line.substring(3).trim()}</p>`;
-                        } else if (line.startsWith('3. ')) {
-                            formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].nutrients}</span>${line.substring(3).trim()}</p>`;
-                        } else if (line.startsWith('4. ')) {
-                            formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderly}</span> ${line.substring(3).trim()}</p>`;
-                        } else if (line.startsWith('5. ')) {
-                            formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyDiseases}</span> ${line.substring(3).trim()}</p>`;
-                        } else {
-                            formattedOutput += `<p>${line.trim()}</p>`; // Fallback for any unparsed lines
-                        }
-                    });
-                    resultsArea.innerHTML = `<div class="fade-in">${formattedOutput}</div>`;
+                    resultsArea.innerHTML = parseAndFormatResponse(rawText); // Use the new parsing function
                 } else {
                     resultsArea.innerHTML = `<p class="text-red-500 text-lg">${translations[currentLanguage].noInfo}</p>`;
                 }
