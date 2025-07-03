@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>食物辨識器 (Llama 3.2 視覺)</title>
+    <title>食物辨識器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f4f8;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -17,13 +18,34 @@
             padding: 20px;
             box-sizing: border-box;
         }
+        .lang-toggle {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .lang-button {
+            padding: 8px 15px;
+            border-radius: 8px;
+            background-color: #cbd5e1;
+            color: #334155;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .lang-button.active {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .lang-button:hover:not(.active) {
+            background-color: #94a3b8;
+        }
         .container {
             background-color: #ffffff;
-            padding: 40px; /* Increased padding */
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 700px; /* Increased max-width for bigger content */
+            max-width: 700px;
             text-align: center;
         }
         .file-input-wrapper {
@@ -45,10 +67,10 @@
         .upload-button {
             background-color: #4f46e5;
             color: white;
-            padding: 15px 25px; /* Increased padding */
+            padding: 15px 25px;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 1.15em; /* Slightly larger text */
+            font-size: 1.15em;
             transition: background-color 0.3s ease;
             display: inline-block;
             margin-top: 15px;
@@ -59,23 +81,23 @@
         }
         #image-preview {
             max-width: 100%;
-            max-height: 350px; /* Slightly larger max height */
-            margin-top: 25px; /* Increased margin */
+            max-height: 350px;
+            margin-top: 25px;
             border-radius: 10px;
             object-fit: contain;
-            display: none; /* Hidden by default */
+            display: none;
         }
         .action-button {
             background-color: #10b981;
             color: white;
-            padding: 15px 30px; /* Increased padding */
+            padding: 15px 30px;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 1.2em; /* Larger text */
+            font-size: 1.2em;
             transition: background-color 0.3s ease;
             border: none;
             cursor: pointer;
-            margin-top: 25px; /* Increased margin */
+            margin-top: 25px;
         }
         .action-button:hover {
             background-color: #059669;
@@ -86,24 +108,24 @@
         }
         #loading-indicator {
             display: none;
-            margin-top: 25px; /* Increased margin */
+            margin-top: 25px;
             font-weight: 500;
             color: #4b5563;
-            font-size: 1.1em; /* Larger text */
+            font-size: 1.1em;
         }
         #results-area {
-            margin-top: 35px; /* Increased margin */
-            padding: 25px; /* Increased padding */
+            margin-top: 35px;
+            padding: 25px;
             background-color: #e2e8f0;
             border-radius: 10px;
             text-align: left;
-            min-height: 100px; /* Increased min-height */
+            min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.15em; /* Slightly larger text */
+            font-size: 1.15em;
             color: #334155;
-            word-wrap: break-word; /* Ensure text wraps */
+            word-wrap: break-word;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -112,31 +134,39 @@
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="lang-toggle">
+        <button id="lang-zh" class="lang-button active" data-lang="zh">中文</button>
+        <button id="lang-en" class="lang-button" data-lang="en">English</button>
+    </div>
+
+    <div id="chinese-content" class="container">
         <h1 class="text-4xl font-bold text-gray-800 mb-8">食物辨識器</h1>
         <p class="text-lg text-gray-600 mb-6">
             (使用 OpenRouter: Llama 3.2 Vision - 此模型可以分析圖像！)
         </p>
 
         <div class="mb-8">
-            <label class="block text-gray-700 text-lg font-bold mb-3" for="image-upload">
+            <label class="block text-gray-700 text-lg font-bold mb-3" for="image-upload-zh">
                 上傳食物圖片：
             </label>
             <div class="file-input-wrapper">
-                <input type="file" id="image-upload" accept="image/*">
+                <input type="file" id="image-upload-zh" accept="image/*">
                 <div class="upload-button">選擇文件</div>
             </div>
-            <img id="image-preview" src="#" alt="圖片預覽" class="mx-auto mt-5 rounded-lg shadow-md border border-gray-200">
+            <img id="image-preview-zh" src="#" alt="圖片預覽" class="mx-auto mt-5 rounded-lg shadow-md border border-gray-200">
         </div>
 
-        <button id="detect-button" class="action-button" disabled>
+        <button id="detect-button-zh" class="action-button" disabled>
             辨識食物
         </button>
 
-        <div id="loading-indicator" class="flex items-center justify-center space-x-3">
+        <div id="loading-indicator-zh" class="flex items-center justify-center space-x-3 hidden">
             <svg class="animate-spin h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -144,20 +174,109 @@
             <span>正在辨識...</span>
         </div>
 
-        <div id="results-area" class="fade-in">
+        <div id="results-area-zh" class="fade-in">
             <p class="text-gray-700">上傳圖片並點擊「辨識食物」以查看結果。</p>
         </div>
     </div>
 
+    <div id="english-content" class="container hidden">
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">Food Recognizer</h1>
+        <p class="text-lg text-gray-600 mb-6">
+            (Powered by OpenRouter: Llama 3.2 Vision - This model can analyze images!)
+        </p>
+
+        <div class="mb-8">
+            <label class="block text-gray-700 text-lg font-bold mb-3" for="image-upload-en">
+                Upload Food Image:
+            </label>
+            <div class="file-input-wrapper">
+                <input type="file" id="image-upload-en" accept="image/*">
+                <div class="upload-button">Choose File</div>
+            </div>
+            <img id="image-preview-en" src="#" alt="Image Preview" class="mx-auto mt-5 rounded-lg shadow-md border border-gray-200">
+        </div>
+
+        <button id="detect-button-en" class="action-button" disabled>
+            Recognize Food
+        </button>
+
+        <div id="loading-indicator-en" class="flex items-center justify-center space-x-3 hidden">
+            <svg class="animate-spin h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Recognizing...</span>
+        </div>
+
+        <div id="results-area-en" class="fade-in">
+            <p class="text-gray-700">Upload an image and click "Recognize Food" to see the results.</p>
+        </div>
+    </div>
+
     <script>
-        const imageUpload = document.getElementById('image-upload');
-        const imagePreview = document.getElementById('image-preview');
-        const detectButton = document.getElementById('detect-button');
-        const loadingIndicator = document.getElementById('loading-indicator');
-        const resultsArea = document.getElementById('results-area');
+        const langToggleButtons = document.querySelectorAll('.lang-button');
+        const chineseContent = document.getElementById('chinese-content');
+        const englishContent = document.getElementById('english-content');
+
+        // Chinese elements
+        const imageUploadZh = document.getElementById('image-upload-zh');
+        const imagePreviewZh = document.getElementById('image-preview-zh');
+        const detectButtonZh = document.getElementById('detect-button-zh');
+        const loadingIndicatorZh = document.getElementById('loading-indicator-zh');
+        const resultsAreaZh = document.getElementById('results-area-zh');
+
+        // English elements
+        const imageUploadEn = document.getElementById('image-upload-en');
+        const imagePreviewEn = document.getElementById('image-preview-en');
+        const detectButtonEn = document.getElementById('detect-button-en');
+        const loadingIndicatorEn = document.getElementById('loading-indicator-en');
+        const resultsAreaEn = document.getElementById('results-area-en');
 
         let base64ImageData = ''; // Store the Base64 image data
         let currentMimeType = 'image/png'; // Default MIME type
+        let currentLanguage = 'zh'; // Default language
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            if (lang === 'zh') {
+                chineseContent.classList.remove('hidden');
+                englishContent.classList.add('hidden');
+                document.getElementById('lang-zh').classList.add('active');
+                document.getElementById('lang-en').classList.remove('active');
+                // Reset image preview and results when switching language
+                resetUI(imagePreviewZh, detectButtonZh, resultsAreaZh, true);
+            } else {
+                chineseContent.classList.add('hidden');
+                englishContent.classList.remove('hidden');
+                document.getElementById('lang-zh').classList.remove('active');
+                document.getElementById('lang-en').classList.add('active');
+                // Reset image preview and results when switching language
+                resetUI(imagePreviewEn, detectButtonEn, resultsAreaEn, true);
+            }
+        }
+
+        function resetUI(preview, button, results, clearImage = false) {
+            if (clearImage) {
+                preview.src = '#';
+                preview.style.display = 'none';
+                base64ImageData = '';
+                preview.dataset.mimeType = '';
+            }
+            button.disabled = true;
+            if (currentLanguage === 'zh') {
+                results.innerHTML = '<p class="text-gray-700">上傳圖片並點擊「辨識食物」以查看結果。</p>';
+            } else {
+                results.innerHTML = '<p class="text-gray-700">Upload an image and click "Recognize Food" to see the results.</p>';
+            }
+        }
+
+        langToggleButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const lang = event.target.dataset.lang;
+                switchLanguage(lang);
+            });
+        });
 
         /**
          * Resizes an image to a maximum dimension while maintaining aspect ratio,
@@ -199,7 +318,6 @@
                         ctx.drawImage(img, 0, 0, width, height);
 
                         // Get the data URL from the canvas
-                        // Use the original file's MIME type if possible, otherwise default to image/jpeg for better compression
                         const outputMimeType = file.type && file.type.startsWith('image/') ? file.type : 'image/jpeg';
                         const quality = 0.9; // Adjust quality for JPEG output
                         const dataUrl = canvas.toDataURL(outputMimeType, quality);
@@ -213,70 +331,78 @@
             });
         }
 
-        // Event listener for image file selection
-        imageUpload.addEventListener('change', async function(event) {
+        // Common image upload handler for both languages
+        async function handleImageUpload(event, imagePreviewElement, detectButtonElement, resultsAreaElement) {
             const file = event.target.files[0];
             if (file) {
-                // Resize the image to a maximum of 1000 pixels (either width or height)
                 const resizedDataUrl = await resizeImage(file, 1000, 1000);
 
-                imagePreview.src = resizedDataUrl;
-                imagePreview.style.display = 'block'; // Show the image preview
+                imagePreviewElement.src = resizedDataUrl;
+                imagePreviewElement.style.display = 'block';
 
-                // Get only the base64 part from the resized data URL
                 base64ImageData = resizedDataUrl.split(',')[1];
-                imagePreview.dataset.mimeType = currentMimeType; // Store the actual mime type used for the canvas output
+                imagePreviewElement.dataset.mimeType = currentMimeType;
 
-                detectButton.disabled = false; // Enable the detect button
-                resultsArea.innerHTML = '<p class="text-gray-700">圖片已載入並調整大小。點擊「辨識食物」進行分析。</p>';
+                detectButtonElement.disabled = false;
+                if (currentLanguage === 'zh') {
+                    resultsAreaElement.innerHTML = '<p class="text-gray-700">圖片已載入並調整大小。點擊「辨識食物」進行分析。</p>';
+                } else {
+                    resultsAreaElement.innerHTML = '<p class="text-gray-700">Image loaded and resized. Click "Recognize Food" to analyze.</p>';
+                }
             } else {
-                imagePreview.src = '#';
-                imagePreview.style.display = 'none';
-                base64ImageData = '';
-                imagePreview.dataset.mimeType = '';
-                detectButton.disabled = true;
-                resultsArea.innerHTML = '<p class="text-gray-700">上傳圖片並點擊「辨識食物」以查看結果。</p>';
+                resetUI(imagePreviewElement, detectButtonElement, resultsAreaElement, true);
             }
-        });
+        }
 
-        // Event listener for the detect button
-        detectButton.addEventListener('click', async function() {
-            // OpenRouter API Key
+        // Event listeners for Chinese version
+        imageUploadZh.addEventListener('change', (event) => handleImageUpload(event, imagePreviewZh, detectButtonZh, resultsAreaZh));
+        detectButtonZh.addEventListener('click', () => handleDetectClick(imagePreviewZh, loadingIndicatorZh, detectButtonZh, resultsAreaZh));
+
+        // Event listeners for English version
+        imageUploadEn.addEventListener('change', (event) => handleImageUpload(event, imagePreviewEn, detectButtonEn, resultsAreaEn));
+        detectButtonEn.addEventListener('click', () => handleDetectClick(imagePreviewEn, loadingIndicatorEn, detectButtonEn, resultsAreaEn));
+
+        // Common detect button handler
+        async function handleDetectClick(imagePreviewElement, loadingIndicatorElement, detectButtonElement, resultsAreaElement) {
             const encodedstring = 'c2stb3ItdjEtYTI2ZDNjOTllMDI4NWY2NzZjMjdhZTM0Nzg4M2M2ZThlNmY4ZTY2YTJjMGNjOTBhYTBkMTIxOGFkNTA2YTJkOQ==';
             const API_TOKEN = atob(encodedstring);
             
             if (!base64ImageData) {
-                resultsArea.innerHTML = '<p class="text-red-500 text-lg">請先上傳圖片。</p>';
+                if (currentLanguage === 'zh') {
+                    resultsAreaElement.innerHTML = '<p class="text-red-500 text-lg">請先上傳圖片。</p>';
+                } else {
+                    resultsAreaElement.innerHTML = '<p class="text-red-500 text-lg">Please upload an image first.</p>';
+                }
                 return;
             }
             
-            // Show loading indicator and disable button
-            loadingIndicator.style.display = 'flex';
-            detectButton.disabled = true;
-            resultsArea.innerHTML = ''; // Clear previous results
+            loadingIndicatorElement.style.display = 'flex';
+            detectButtonElement.disabled = true;
+            resultsAreaElement.innerHTML = '';
 
             try {
-                // OpenRouter API Endpoint for Chat Completions
                 const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
-                // Prompt for the multimodal model (Llama 3.2 Vision) - ALL OUTPUT NOW IN CHINESE
-                const prompt = "根據圖片，提供以下資訊：\n1. 食物名稱（中文）：\n2. 成分（簡短，逗號分隔，中文）：\n3. 主要營養素（簡短，逗號分隔，中文）：\n4. 這種食物對老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。\n5. 這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。";
-                const mimeType = imagePreview.dataset.mimeType || 'image/png'; // Use detected mime type or fallback
+                let prompt;
+                if (currentLanguage === 'zh') {
+                    prompt = "根據圖片，提供以下資訊：\n1. 食物名稱（中文）：\n2. 成分（簡短，逗號分隔，中文）：\n3. 主要營養素（簡短，逗號分隔，中文）：\n4. 這種食物對老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。\n5. 這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？（中文回答「是」/「否」並附上非常簡短的中文原因）。";
+                } else {
+                    prompt = "Based on the image, provide the following information:\n1. Food Name (in English):\n2. Ingredients (short, comma-separated list, in English):\n3. Key Nutrients (short, comma-separated list, in English):\n4. Is this food generally healthy for elderly people? (Yes/No in English and a very brief reason in English).\n5. Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease? (Yes/No in English and a very brief reason in English).";
+                }
+
+                const mimeType = imagePreviewElement.dataset.mimeType || 'image/png';
 
                 const payload = {
-                    "model": "meta-llama/llama-3.2-11b-vision-instruct:free", // The new vision-enabled OpenRouter model
+                    "model": "meta-llama/llama-3.2-11b-vision-instruct:free",
                     "messages": [
                         { 
                             "role": "user", 
                             "content": [
-                                { "type": "text", "text": prompt }, // Text part of the prompt
-                                { "type": "image_url", "image_url": { "url": `data:${mimeType};base64,${base64ImageData}` } } // Image part
+                                { "type": "text", "text": prompt },
+                                { "type": "image_url", "image_url": { "url": `data:${mimeType};base64,${base64ImageData}` } }
                             ]
                         }
                     ],
-                    // You can add other parameters like temperature, max_tokens here if needed
-                    // "temperature": 0.7,
-                    // "max_tokens": 500
                 };
 
                 const response = await fetch(apiUrl, {
@@ -284,15 +410,21 @@
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${API_TOKEN}`,
-                        'HTTP-Referer': window.location.href, // Required by OpenRouter for attribution. Use your app's domain if deployed.
-                        'X-Title': '食物辨識器應用程式' // Translated title
+                        'HTTP-Referer': window.location.href,
+                        'X-Title': '食物辨識器應用程式' // This title is for OpenRouter's attribution, doesn't need to change with UI lang
                     },
                     body: JSON.stringify(payload)
                 });
 
                 if (!response.ok) {
                     const responseBodyText = await response.text();
-                    let errorDetails = `HTTP 錯誤: ${response.status} ${response.statusText}`;
+                    let errorDetails;
+                    if (currentLanguage === 'zh') {
+                        errorDetails = `HTTP 錯誤: ${response.status} ${response.statusText}`;
+                    } else {
+                        errorDetails = `HTTP Error: ${response.status} ${response.statusText}`;
+                    }
+                    
 
                     try {
                         const jsonError = JSON.parse(responseBodyText);
@@ -300,26 +432,40 @@
                     } catch (e) {
                         errorDetails += ` - ${responseBodyText}`;
                     }
-                    throw new Error(`OpenRouter API 錯誤: ${errorDetails}`);
+                    if (currentLanguage === 'zh') {
+                        throw new Error(`OpenRouter API 錯誤: ${errorDetails}`);
+                    } else {
+                        throw new Error(`OpenRouter API Error: ${errorDetails}`);
+                    }
                 }
 
                 const result = await response.json();
 
-                // OpenRouter (OpenAI-compatible) chat completion response structure
                 if (result && result.choices && result.choices.length > 0 && result.choices[0].message && result.choices[0].message.content) {
                     const text = result.choices[0].message.content;
-                    resultsArea.innerHTML = `<p class="text-gray-800 fade-in text-lg">${text.replace(/\n/g, '<br>')}</p>`;
+                    resultsAreaElement.innerHTML = `<p class="text-gray-800 fade-in text-lg">${text.replace(/\n/g, '<br>')}</p>`;
                 } else {
-                    resultsArea.innerHTML = '<p class="text-red-500 text-lg">未生成食物資訊或 OpenRouter API 回應結構異常。</p>';
+                    if (currentLanguage === 'zh') {
+                        resultsAreaElement.innerHTML = '<p class="text-red-500 text-lg">未生成食物資訊或 OpenRouter API 回應結構異常。</p>';
+                    } else {
+                        resultsAreaElement.innerHTML = '<p class="text-red-500 text-lg">No food information generated or unexpected OpenRouter API response structure.</p>';
+                    }
                 }
             } catch (error) {
                 console.error('OpenRouter API 錯誤:', error);
-                resultsArea.innerHTML = `<p class="text-red-500 text-lg">錯誤：${error.message}。請再試一次。</p>`;
+                if (currentLanguage === 'zh') {
+                    resultsAreaElement.innerHTML = `<p class="text-red-500 text-lg">錯誤：${error.message}。請再試一次。</p>`;
+                } else {
+                    resultsAreaElement.innerHTML = `<p class="text-red-500 text-lg">Error: ${error.message}. Please try again.</p>`;
+                }
             } finally {
-                loadingIndicator.style.display = 'none';
-                detectButton.disabled = false;
+                loadingIndicatorElement.style.display = 'none';
+                detectButtonElement.disabled = false;
             }
-        });
+        }
+
+        // Initialize with Chinese content visible
+        switchLanguage('zh');
     </script>
 </body>
 </html>
