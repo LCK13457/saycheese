@@ -223,12 +223,12 @@
                 noInfo: '未能解析食物資訊。原始回應可能未按預期格式。',
                 generalError: '錯誤：',
                 tryAgain: '。請再試一次。',
-                rateLimitError: '請求過於頻繁。請稍後再試，或在 OpenRouter 上添加您自己的 API 密鑰以獲得更高限額。', // New specific message
-                foodNamePrefix: '食物名稱：',
-                ingredientsPrefix: '成分：',
-                nutrientsPrefix: '主要營養素：',
-                healthyElderlyPrefix: '這種食物對老年人來說通常健康嗎？：',
-                healthyElderlyDiseasesPrefix: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：'
+                rateLimitError: '請求過於頻繁。請稍後再試，或在 OpenRouter 上添加您自己的 API 密鑰以獲得更高限額。',
+                foodNameQuestion: '食物名稱：',
+                ingredientsQuestion: '成分：',
+                nutrientsQuestion: '主要營養素：',
+                healthyElderlyQuestion: '這種食物對老年人來說通常健康嗎？',
+                healthyElderlyDiseasesQuestion: '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？'
             },
             en: {
                 title: 'Food Recognizer',
@@ -246,12 +246,12 @@
                 noInfo: 'Failed to parse food information. Raw response may not be in expected format.',
                 generalError: 'Error: ',
                 tryAgain: '. Please try again.',
-                rateLimitError: 'Too many requests. Please try again shortly, or add your own API key on OpenRouter for higher limits.', // New specific message
-                foodNamePrefix: 'Food Name:',
-                ingredientsPrefix: 'Ingredients:',
-                nutrientsPrefix: 'Key Nutrients:',
-                healthyElderlyPrefix: 'Is this food generally healthy for elderly people?:',
-                healthyElderlyDiseasesPrefix: 'Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?:'
+                rateLimitError: 'Too many requests. Please try again shortly, or add your own API key on OpenRouter for higher limits.',
+                foodNameQuestion: 'Food Name:',
+                ingredientsQuestion: 'Ingredients:',
+                nutrientsQuestion: 'Key Nutrients:',
+                healthyElderlyQuestion: 'Is this food generally healthy for elderly people?',
+                healthyElderlyDiseasesQuestion: 'Is this food generally healthy for elderly people with high blood pressure, high blood sugar, high cholesterol, heart disease, kidney disease?'
             }
         };
 
@@ -374,19 +374,29 @@
             const lines = rawText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
             const foodInfo = {};
             
-            // Using the actual Chinese prefixes from translations for robust parsing
-            const zhPrefixes = {
-                '食物名稱': 'foodNamePrefix',
-                '成分': 'ingredientsPrefix',
-                '主要營養素': 'nutrientsPrefix',
-                '這種食物對老年人來說通常健康嗎？': 'healthyElderlyPrefix',
-                '這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？': 'healthyElderlyDiseasesPrefix'
+            // Define the Chinese questions exactly as they appear in the prompt
+            const chineseQuestions = [
+                "食物名稱：",
+                "成分：",
+                "主要營養素：",
+                "這種食物對老年人來說通常健康嗎？：",
+                "這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？："
+            ];
+
+            // Map the questions to their corresponding translation keys
+            const questionToKeyMap = {
+                "食物名稱：": "foodNameQuestion",
+                "成分：": "ingredientsQuestion",
+                "主要營養素：": "nutrientsQuestion",
+                "這種食物對老年人來說通常健康嗎？：": "healthyElderlyQuestion",
+                "這種食物對於患有高血壓、高血糖、高膽固醇、心臟病、腎臟病的老年人來說通常健康嗎？：": "healthyElderlyDiseasesQuestion"
             };
 
             lines.forEach(line => {
-                for (const key in zhPrefixes) {
-                    if (line.startsWith(key + '：')) { // Check for the Chinese colon
-                        foodInfo[zhPrefixes[key]] = line.substring(key.length + 1).trim(); // +1 for the colon
+                for (const question of chineseQuestions) {
+                    if (line.startsWith(question)) {
+                        const key = questionToKeyMap[question];
+                        foodInfo[key] = line.substring(question.length).trim();
                         return;
                     }
                 }
@@ -394,16 +404,18 @@
 
             let formattedOutput = '';
             if (Object.keys(foodInfo).length > 0) {
-                formattedOutput += `<p class="font-bold">${translations[currentLanguage].foodNamePrefix}${foodInfo.foodNamePrefix || 'N/A'}</p>`;
-                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].ingredientsPrefix}</span>${foodInfo.ingredientsPrefix || 'N/A'}</p>`;
-                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].nutrientsPrefix}</span>${foodInfo.nutrientsPrefix || 'N/A'}</p>`;
-                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyPrefix}</span> ${foodInfo.healthyElderlyPrefix || 'N/A'}</p>`;
-                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyDiseasesPrefix}</span> ${foodInfo.healthyElderlyDiseasesPrefix || 'N/A'}</p>`;
+                formattedOutput += `<p class="font-bold">${translations[currentLanguage].foodNameQuestion}${foodInfo.foodNameQuestion || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].ingredientsQuestion}</span>${foodInfo.ingredientsQuestion || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].nutrientsQuestion}</span>${foodInfo.nutrientsQuestion || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyQuestion}</span> ${foodInfo.healthyElderlyQuestion || 'N/A'}</p>`;
+                formattedOutput += `<p><span class="font-bold">${translations[currentLanguage].healthyElderlyDiseasesQuestion}</span> ${foodInfo.healthyElderlyDiseasesQuestion || 'N/A'}</p>`;
             } else {
+                // If parsing fails, display the raw response for debugging
                 formattedOutput = `<p class="text-red-500 text-lg">${translations[currentLanguage].noInfo}</p><p class="text-gray-600 text-sm mt-2">原始回應：<br>${rawText.replace(/\n/g, '<br>')}</p>`;
             }
             return `<div class="fade-in">${formattedOutput}</div>`;
         }
+
 
         // Event listener for the detect button
         detectButton.addEventListener('click', async function() {
@@ -422,7 +434,7 @@
             try {
                 const apiUrl = "https://openrouter.ai/api/v1/chat/completions";
                 
-                // Prompt remains the same as previous version, as the issue is not with the prompt's content.
+                // The prompt is now highly specific to ensure the desired Chinese output format
                 const prompt = `請根據提供的圖片，嚴格按照以下格式，只用中文提供以下食物資訊。所有輸出必須是中文，不要包含任何英文或其他語言。
 
 食物名稱：[食物的中文名稱，例如：蘋果、雞肉飯]
@@ -462,7 +474,6 @@
                     let errorDetails = `${translations[currentLanguage].httpError} ${response.status} ${response.statusText}`;
                     try {
                         const jsonError = JSON.parse(responseBodyText);
-                        // Check if the error is specifically a 429 rate limit error
                         if (response.status === 429) {
                             errorDetails = translations[currentLanguage].rateLimitError;
                         } else {
@@ -484,7 +495,6 @@
                 }
             } catch (error) {
                 console.error('API Error:', error);
-                // Display the specific rate limit message if it was caught
                 if (error.message.includes(translations[currentLanguage].rateLimitError)) {
                     resultsArea.innerHTML = `<p class="text-red-500 text-lg">${error.message}</p>`;
                 } else {
