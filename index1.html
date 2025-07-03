@@ -331,7 +331,9 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
 
-                        // Draw the image onto the canvas
+                        // Draw the image onto the canvas - THIS IS THE CRUCIAL MISSING LINE
+                        ctx.drawImage(img, 0, 0, width, height); 
+
                         const outputMimeType = file.type && file.type.startsWith('image/') ? file.type : 'image/jpeg';
                         const quality = 0.9;
                         const dataUrl = canvas.toDataURL(outputMimeType, quality);
