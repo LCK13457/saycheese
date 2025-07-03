@@ -17,6 +17,13 @@
             padding: 20px;
             box-sizing: border-box;
             text-align: center; /* Center content horizontally */
+
+            /* --- Added for 175% zoom --- */
+            transform: scale(1.75); /* Scale the entire content to 175% */
+            transform-origin: top center; /* Scale from the top center */
+            min-height: 175vh; /* Adjust min-height to accommodate scaling */
+            padding: 35px; /* Adjust padding for scaled content */
+            /* ------------------------- */
         }
         .container {
             background-color: #ffffff;
@@ -36,7 +43,7 @@
             padding: 15px 30px;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 1.5em; /* Increased size */
             transition: background-color 0.3s ease, transform 0.2s ease;
             display: inline-block; /* Allows padding and width to be applied */
             width: 100%; /* Make buttons full width of their container */
@@ -91,18 +98,19 @@
             cursor: pointer;
             border: none;
             transition: background-color 0.3s ease;
+            font-size: 1.1em; /* Increased size */
         }
         .modal-close-button:hover {
             background-color: #dc2626;
         }
         .modal-title {
-            font-size: 1.8em;
+            font-size: 2.2em; /* Increased size */
             font-weight: bold;
             color: #334155;
             margin-bottom: 15px;
         }
         .modal-tip-text {
-            font-size: 1.1em;
+            font-size: 1.3em; /* Increased size */
             color: #4b5563;
             line-height: 1.6;
         }
@@ -110,8 +118,8 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">歡迎來到美食網站！</h1>
-        <p class="text-gray-600 mb-6">點擊下方按鈕探索健康美食：</p>
+        <h1 class="text-5xl font-extrabold text-gray-800 mb-4">歡迎來到美食網站！</h1>
+        <p class="text-xl text-gray-600 mb-6">點擊下方按鈕探索健康美食：</p>
 
         <a href="index1.html" class="nav-button bg-red-500 hover:bg-red-600">
             食物圖片辨識器
