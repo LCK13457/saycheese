@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Portfolio</title>
-    <!-- Tailwind CSS CDN -->
+    <title>我的 GitHub Pages 作品集</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -111,36 +110,31 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Welcome to the Food Website!</h1>
-        <p class="text-gray-600 mb-6">Click a button below to explore the healthy food :</p>
+        <h1 class="text-4xl font-extrabold text-gray-800 mb-4">歡迎來到美食網站！</h1>
+        <p class="text-gray-600 mb-6">點擊下方按鈕探索健康美食：</p>
 
-        <!-- Link to index1.html - Red -->
         <a href="index1.html" class="nav-button bg-red-500 hover:bg-red-600">
-            Food image detector
+            食物圖片辨識器
         </a>
 
-        <!-- Link to index2.html - Orange -->
         <a href="index2.html" class="nav-button bg-orange-500 hover:bg-orange-600">
-            English food detector
+            英文食物辨識器
         </a>
 
-        <!-- Link to index3.html - Yellow -->
         <a href="index3.html" class="nav-button bg-yellow-500 hover:bg-yellow-600">
-            Chinese food detector
+            中文食物辨識器
         </a>
 
-        <!-- Link to index4.html - Green (already set) -->
         <a href="index4.html" class="nav-button bg-green-500 hover:bg-green-600">
-            Restaurant suggestions
+            餐廳推薦
         </a>
     </div>
 
-    <!-- The Modal (Popup) Structure -->
     <div id="healthTipModal" class="modal-overlay">
         <div class="modal-content">
-            <h2 class="modal-title">Health Tip for Seniors with Chronic Conditions!</h2>
+            <h2 class="modal-title">慢性病長者的健康貼士！</h2>
             <p id="randomTipText" class="modal-tip-text"></p>
-            <button class="modal-close-button" onclick="closeModal()">Got It!</button>
+            <button class="modal-close-button" onclick="closeModal()">知道了！</button>
         </div>
     </div>
 
@@ -148,16 +142,16 @@
         // Array of healthy tips, specifically tailored for elderly individuals with high blood pressure,
         // high blood sugar, and high cholesterol ("3 high diseases").
         const healthyTips = [
-            "**Prioritize Low-Sodium, High-Fiber Foods:** For blood pressure and heart health, choose fresh fruits, vegetables, whole grains, and lean proteins. Limit processed foods, which are often high in sodium.",
-            "**Monitor Blood Sugar with Smart Choices:** Opt for complex carbohydrates (like oats, brown rice) and lean proteins. Avoid sugary drinks and processed sweets to help manage blood sugar levels effectively.",
-            "**Choose Healthy Fats for Cholesterol:** Incorporate sources of unsaturated fats like avocados, nuts, seeds, and olive oil. Limit saturated and trans fats found in fried foods and many packaged snacks to support heart health.",
-            "**Regular, Doctor-Approved Exercise:** Engage in physical activity tailored to your health conditions, such as brisk walking, swimming, or cycling. Always consult your doctor before starting any new exercise routine.",
-            "**Consistent Medication Adherence is Key:** Take all prescribed medications for blood pressure, blood sugar, and cholesterol exactly as directed. Missing doses can have serious health consequences.",
-            "**Stay Hydrated with Plain Water:** Avoid sugary drinks that can spike blood sugar. Water is essential for kidney function and helps manage blood pressure and overall metabolism.",
-            "**Manage Stress Effectively:** Stress can impact blood pressure and blood sugar. Practice relaxation techniques like deep breathing, meditation, or gentle yoga to help keep stress levels in check.",
-            "**Regular Medical Check-ups & Monitoring:** Frequent visits to your doctor are vital to monitor your blood pressure, blood sugar, and cholesterol levels. Discuss any changes or concerns promptly.",
-            "**Understand Food Labels:** Learn to read nutrition labels to identify sodium, sugar, and unhealthy fat content. This empowers you to make informed food choices that support your health goals.",
-            "**Prioritize Quality Sleep:** Good sleep helps regulate hormones that affect blood sugar and appetite, and contributes to overall cardiovascular health. Aim for 7-9 hours of restful sleep nightly."
+            "**優先選擇低鈉、高纖維食物：** 為了血壓和心臟健康，選擇新鮮水果、蔬菜、全穀物和瘦肉蛋白質。限制加工食品，因為它們通常鈉含量高。",
+            "**透過明智的選擇監測血糖：** 選擇複合碳水化合物（如燕麥、糙米）和瘦肉蛋白質。避免含糖飲料和加工甜食，以有效管理血糖水平。",
+            "**選擇健康脂肪來控制膽固醇：** 攝取不飽和脂肪的來源，如牛油果、堅果、種子和橄欖油。限制油炸食品和許多包裝零食中含有的飽和脂肪和反式脂肪，以支持心臟健康。",
+            "**經醫生批准的定期運動：** 進行適合您健康狀況的體育活動，如快走、游泳或騎自行車。在開始任何新的運動計劃之前，務必諮詢您的醫生。",
+            "**堅持按時服藥是關鍵：** 嚴格按照醫囑服用所有降血壓、降血糖和降膽固醇的藥物。漏服劑量可能會導致嚴重的健康後果。",
+            "**多喝白開水保持水分：** 避免飲用含糖飲料，因為它們會導致血糖升高。水對於腎功能至關重要，並有助於管理血壓和整體新陳代謝。",
+            "**有效管理壓力：** 壓力會影響血壓和血糖。練習放鬆技巧，如深呼吸、冥想或溫和的瑜伽，以幫助控制壓力水平。",
+            "**定期體檢和監測：** 定期去看醫生對於監測您的血壓、血糖和膽固醇水平至關重要。及時討論任何變化或疑慮。",
+            "**了解食物標籤：** 學習閱讀營養標籤，以識別鈉、糖和不健康脂肪的含量。這使您能夠做出支持您健康目標的明智食物選擇。",
+            "**優先保證充足睡眠：** 良好的睡眠有助於調節影響血糖和食慾的激素，並有助於整體心血管健康。每晚爭取 7-9 小時的安穩睡眠。"
         ];
 
         function showRandomTip() {
