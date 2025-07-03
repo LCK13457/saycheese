@@ -116,28 +116,37 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-4xl font-bold text-gray-800 mb-8">食物辨識器</h1> <p class="text-lg text-gray-600 mb-6">
-            (使用 OpenRouter: Llama 3.2 Vision - 此模型可以分析圖像！) </p>
+        <h1 class="text-4xl font-bold text-gray-800 mb-8">食物辨識器</h1>
+        <p class="text-lg text-gray-600 mb-6">
+            (使用 OpenRouter: Llama 3.2 Vision - 此模型可以分析圖像！)
+        </p>
 
-        <div class="mb-8"> <label class="block text-gray-700 text-lg font-bold mb-3" for="image-upload"> 上傳食物圖片：
+        <div class="mb-8">
+            <label class="block text-gray-700 text-lg font-bold mb-3" for="image-upload">
+                上傳食物圖片：
             </label>
             <div class="file-input-wrapper">
                 <input type="file" id="image-upload" accept="image/*">
                 <div class="upload-button">選擇文件</div>
             </div>
-            <img id="image-preview" src="#" alt="圖片預覽" class="mx-auto mt-5 rounded-lg shadow-md border border-gray-200"> </div>
+            <img id="image-preview" src="#" alt="圖片預覽" class="mx-auto mt-5 rounded-lg shadow-md border border-gray-200">
+        </div>
 
         <button id="detect-button" class="action-button" disabled>
             辨識食物
         </button>
 
-        <div id="loading-indicator" class="flex items-center justify-center space-x-3"> <svg class="animate-spin h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"> <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <div id="loading-indicator" class="flex items-center justify-center space-x-3">
+            <svg class="animate-spin h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <span>正在辨識...</span> </div>
+            <span>正在辨識...</span>
+        </div>
 
         <div id="results-area" class="fade-in">
-            <p class="text-gray-700">上傳圖片並點擊「辨識食物」以查看結果。</p> </div>
+            <p class="text-gray-700">上傳圖片並點擊「辨識食物」以查看結果。</p>
+        </div>
     </div>
 
     <script>
