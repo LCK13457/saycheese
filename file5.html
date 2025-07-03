@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新記雞粥 | 香港地道美食</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-red: #e63946;
@@ -105,6 +106,20 @@
             border-radius: 8px;
             margin: 20px 0;
         }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--primary-red);
+            transform: translateY(-3px);
+        }
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .container { padding: 15px; }
@@ -157,6 +172,12 @@
                 <p>老香港風味，鑊氣十足</p>
                 <p>💰 HKD 42</p>
             </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
         </div>
     </div>
 
