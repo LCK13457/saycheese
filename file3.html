@@ -54,12 +54,45 @@
             font-size: 0.9em;
             color: #666;
         }
+        .menu-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border: 1px solid #eee;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        .menu-content {
+            padding: 15px;
+        }
+        .menu-content h3 {
+            color: #E31937;
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .price {
+            color: #666;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
         @media (max-width: 600px) {
             .container {
                 padding: 10px;
             }
             h1 {
                 font-size: 1.5em;
+            }
+            .menu-section {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -89,10 +122,54 @@
             <h3>大家樂小知識</h3>
             <p>大家樂是香港著名連鎖快餐店，成立於1968年，提供中西式快餐選擇。</p>
         </div>
+
+        <!-- 新增適合長者的推薦菜品 -->
+        <h2 style="text-align: center; color: #E31937; margin-top: 30px;">適合長者的推薦菜品</h2>
+        <div class="menu-section">
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>鮮茄滑蛋飯</h3>
+                    <p>軟嫩滑蛋配新鮮番茄，易消化且營養豐富</p>
+                    <p class="price">HKD 42</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>瑤柱蛋白炒飯</h3>
+                    <p>清淡可口，含優質蛋白質，易咀嚼</p>
+                    <p class="price">HKD 45</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>粟米魚柳飯</h3>
+                    <p>軟嫩魚柳配甜玉米，少油少鹽版本</p>
+                    <p class="price">HKD 48</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>南瓜瘦肉粥</h3>
+                    <p>綿滑粥底，營養易吸收</p>
+                    <p class="price">HKD 32</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>清蒸水蛋套餐</h3>
+                    <p>軟滑水蛋配白飯和青菜，清淡健康</p>
+                    <p class="price">HKD 40</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-content">
+                    <h3>冬瓜薏米湯飯</h3>
+                    <p>清熱祛濕，適合夏季食用</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        <p>© 2023 Fairwood Map | Data from Google Maps</p>
-    </footer>
 </body>
 </html>
