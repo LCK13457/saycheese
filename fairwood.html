@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大快活 | 香港地道快餐</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --fairwood-orange: #ff6b00;
+            --fairwood-blue: #005baa;
+            --fairwood-yellow: #ffc72c;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--fairwood-orange), var(--fairwood-blue));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🍛";
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            right: 30px;
+            top: 10px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .restaurant-info {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 6px solid var(--fairwood-orange);
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 35px 0;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border: 3px solid var(--fairwood-yellow);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .combo-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .combo-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .combo-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .combo-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--fairwood-blue);
+        }
+        .combo-content {
+            padding: 20px;
+        }
+        .combo-content h3 {
+            color: var(--fairwood-orange);
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px dashed var(--fairwood-yellow);
+            padding-bottom: 8px;
+        }
+        .price {
+            color: var(--fairwood-blue);
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .branch-info {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-top: 4px solid var(--fairwood-orange);
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--fairwood-orange);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-top: 15px;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(to right, var(--fairwood-blue), #003d7a);
+            color: white;
+            margin-top: 60px;
+        }
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--fairwood-orange);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .value-meal {
+            background-color: #fff8e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--fairwood-yellow);
+        }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--fairwood-orange);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .combo-menu { grid-template-columns: 1fr; }
+            .header { padding: 2rem 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>大快活快餐店<small>FAIRWOOD • 香港人嘅快餐店</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="restaurant-info">
+            <h2>關於大快活</h2>
+            <p>大快活集團成立於1972年，是香港主要連鎖快餐店之一。我們以「香港人嘅快餐店」為定位，提供多元化、高品質而價格相宜的中西美食，滿足香港人不同的飲食需求。</p>
+            <p>大快活堅持「新鮮即製」的經營理念，所有食品均於店內即時製作，確保食物質素。</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d70180.88194337433!2d113.96969041941263!3d22.41290158181593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z5aSn5b-r5rS7!5e0!3m2!1szh-TW!2shk!4v1750819851646!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="branch-info">
+            <h2>分店資訊</h2>
+            <p>地址：香港數碼港道100號數碼港商場地下</p>
+            <p>電話：+852 4567 8901</p>
+            <p>營業時間：<span class="opening-hours">07:00 - 22:00</span></p>
+        </div>
+
+        <div class="value-meal">
+            <h3 style="color: var(--fairwood-blue); margin-top: 0;">超值套餐 | 精選推介</h3>
+            <p>凡購買任何套餐，加$8可升級為特飲，加$12可轉為凍飲+小食</p>
+        </div>
+
+        <h2 style="text-align: center; color: var(--fairwood-blue); margin-top: 50px;">人氣套餐</h2>
+        <div class="combo-menu">
+            <div class="combo-item">
+                <div class="tag">招牌之選</div>
+                <img src="https://example.com/roast-pork-rice.jpg" alt="金牌燒味飯">
+                <div class="combo-content">
+                    <h3>金牌燒味飯</h3>
+                    <p>招牌叉燒、燒肉、油雞三拼，配秘製醬汁</p>
+                    <p class="price">HKD 48</p>
+                </div>
+            </div>
+            <div class="combo-item">
+                <div class="tag">每日限量</div>
+                <img src="https://example.com/curry-beef.jpg" alt="咖喱牛腩飯">
+                <div class="combo-content">
+                    <h3>咖喱牛腩飯</h3>
+                    <p>港式咖喱配方，牛腩軟嫩入味</p>
+                    <p class="price">HKD 52</p>
+                </div>
+            </div>
+            <div class="combo-item">
+                <img src="https://example.com/fried-chicken.jpg" alt="脆香雞扒飯">
+                <div class="combo-content">
+                    <h3>脆香雞扒飯</h3>
+                    <p>香脆雞扒配黑椒汁或蒜蓉汁</p>
+                    <p class="price">HKD 45</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 大快活集團 版權所有</p>
+        <p>客戶服務熱線: 2345 6789 | 網上訂餐: www.fairwood.com.hk</p>
+    </footer>
+</body>
+</html>
