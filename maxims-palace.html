@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美心皇宮 | 傳統粵式酒樓</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --maxims-gold: #d4af37;
+            --maxims-red: #c41e3a;
+        }
+        body {
+            font-family: 'Microsoft JhengHei', 'Meiryo', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff9f5;
+            color: #333;
+        }
+        .header {
+            background: linear-gradient(to right, var(--maxims-gold), var(--maxims-red));
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🥢";
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            right: 50px;
+            top: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            position: relative;
+        }
+        h1 small {
+            display: block;
+            font-size: 1rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+        .restaurant-intro {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--maxims-gold);
+            line-height: 1.8;
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--maxims-red);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .menu-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        .menu-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--maxims-gold);
+        }
+        .menu-content {
+            padding: 15px;
+        }
+        .menu-content h3 {
+            color: var(--maxims-red);
+            margin: 0 0 10px 0;
+            font-size: 1.3rem;
+        }
+        .price {
+            color: var(--maxims-gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        footer {
+            text-align: center;
+            padding: 25px;
+            background-color: #333;
+            color: white;
+            margin-top: 50px;
+        }
+        .branch-info {
+            background: #f9f3e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        .opening-hours {
+            display: inline-block;
+            background: var(--maxims-red);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--maxims-red);
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .menu-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>美心皇宮<small>MAXIM'S PALACE | 傳統粵式酒樓</small></h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="restaurant-intro">
+            <h2>傳統粵式飲茶文化</h2>
+            <p>美心皇宮是香港最具代表性的粵式酒樓之一，自1956年創立以來，一直堅持傳統點心製作工藝。我們以優質食材和精湛廚藝，為顧客提供最地道的港式飲茶體驗。寬敞舒適的環境是家庭聚餐和商務宴請的理想選擇。</p>
+            <p>Maxim's Palace, established in 1956, is one of Hong Kong's most iconic Cantonese restaurants. We uphold traditional dim sum craftsmanship with premium ingredients, offering authentic yum cha experience.</p>
+        </div>
+
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d169830.82890850233!2d114.0015316736619!3d22.350557631633652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1z576O5b-D55qH5a6u!5e0!3m2!1szh-TW!2shk!4v1751828273092!5m2!1szh-TW!2shk" 
+                allowfullscreen 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="branch-info">
+            <h2>香港分店資訊</h2>
+            <p>地址：香港尖沙咀海港城港威商場</p>
+            <p>電話：+852 2345 6789</p>
+            <div class="opening-hours">營業時間：08:00 - 23:00</div>
+        </div>
+
+        <h2 style="text-align: center; color: var(--maxims-gold); margin-top: 40px;">招牌點心</h2>
+        <div class="menu-section">
+            <div class="menu-card">
+                <img src="https://example.com/dim-sum1.jpg" alt="蝦餃皇">
+                <div class="menu-content">
+                    <h3>蝦餃皇</h3>
+                    <p>精選大蝦製作，皮薄餡靚</p>
+                    <p class="price">HKD 48</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://example.com/dim-sum2.jpg" alt="叉燒包">
+                <div class="menu-content">
+                    <h3>蜜汁叉燒包</h3>
+                    <p>秘製蜜汁叉燒，鬆軟外皮</p>
+                    <p class="price">HKD 38</p>
+                </div>
+            </div>
+            <div class="menu-card">
+                <img src="https://example.com/dim-sum3.jpg" alt="點心拼盤">
+                <div class="menu-content">
+                    <h3>精選點心拼盤</h3>
+                    <p>6款招牌點心組合</p>
+                    <p class="price">HKD 128</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 美心皇宮 版權所有</p>
+        <p>訂座熱線: +852 2345 6789</p>
+    </footer>
+</body>
+</html>
