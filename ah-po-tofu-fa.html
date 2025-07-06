@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>亞婆豆腐花 | 香港傳統糖水</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --tofu-brown: #8d6e63;
@@ -11,12 +12,12 @@
             --tofu-red: #c62828;
         }
         body {
-            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
+            font-family: 'Microsoft JhengHei', 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--tofu-beige);
-            color: #5d4037;
-            line-height: 1.7;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
         }
         .header {
             background: linear-gradient(135deg, var(--tofu-brown), #6d4c41);
@@ -89,6 +90,7 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            position: relative;
         }
         .menu-item:hover {
             transform: translateY(-8px);
@@ -140,12 +142,6 @@
             color: white;
             margin-top: 60px;
         }
-        .signature {
-            font-style: italic;
-            color: var(--tofu-brown);
-            text-align: right;
-            margin-top: 20px;
-        }
         .tag {
             position: absolute;
             top: 15px;
@@ -156,6 +152,20 @@
             border-radius: 15px;
             font-size: 0.8rem;
             font-weight: bold;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--tofu-red);
+            transform: translateY(-3px);
         }
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
@@ -177,7 +187,6 @@
             <h2>關於亞婆豆腐花</h2>
             <p>亞婆豆腐花創立於1960年代，由街頭小攤發展至今，已是香港著名的傳統糖水店。我們堅持使用優質黃豆，每日新鮮製作，保留最傳統的風味和口感。</p>
             <p>「亞婆」是我們的創始人，現在由第三代傳人接手，繼續沿用亞婆的獨家配方，為您帶來最地道的港式豆腐花體驗。</p>
-            <p class="signature">—— 傳承古法 用心製作 ——</p>
         </div>
 
         <div class="map-container">
@@ -224,6 +233,12 @@
                     <p class="price">HKD 25</p>
                 </div>
             </div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 返回美食地图
+            </a>
         </div>
     </div>
 
